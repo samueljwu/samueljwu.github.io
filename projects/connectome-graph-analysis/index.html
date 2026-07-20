@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An exploratory graph and machine-learning analysis of human connectome patterns by Samuel Wu.">
+    <title>Connectome Graph Analysis | Samuel Wu</title>
+    <link rel="stylesheet" href="/project-detail.css">
+    <script src="/site-header.js" defer></script>
+</head>
+<body class="project-body connectome-project">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header" data-site-header></header>
+
+    <main class="project-main" id="main-content">
+        <article class="case-study">
+            <header class="case-hero">
+                <p class="eyebrow">Connectomics</p>
+                <h1>connectome-graph-analysis</h1>
+                <p class="project-lead">An exploratory analysis using graph-theoretic features and machine learning to test whether connectome patterns can support subject sex prediction for the SWU4 dataset.</p>
+                <div class="actions">
+                    <a class="button" href="https://github.com/samueljwu/connectome-graph-analysis">View source on GitHub <span aria-hidden="true">&nearr;</span></a>
+                </div>
+            </header>
+
+            <div class="case-content">
+                <div class="content-main">
+                    <section aria-labelledby="overview-heading">
+                        <h2 id="overview-heading">Overview</h2>
+                        <p>This is an exploratory analysis project extended from a course assignment that uses graph-theoretic features and machine learning to test whether connectomic features can predict subject sex in the SWU4 dataset.</p>
+                        <p>The objective is to build a classifier and obtain a classification score of 70% or higher.</p>
+                    </section>
+
+                    <section aria-labelledby="data-heading">
+                        <h2 id="data-heading">The data</h2>
+                        <p>The project starts with precomputed SWU4 weighted edge lists. Each connectome file contains three columns: two nodes and a weight. The nodes are Desikan atlas brain regions, and the weight describes the estimated strength of the structural connection between them.</p>
+                        <p>The matched dataset contains 207 subjects between the ages of 17 and 27: 99 with sex label 1 and 108 with label 2. Each connectome has 70 regions, so the same region-to-region connections can be compared across subjects.</p>
+                        <figure class="analysis-figure figure-wide">
+                            <img src="/projects/connectome-graph-analysis/images/mean-connectome.png" alt="Heatmap of the mean structural connectome across 70 Desikan brain regions, with two stronger blocks visible along the diagonal" width="1348" height="1239" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 01</span> The average 70 &times; 70 connectivity matrix across all 207 subjects.</figcaption>
+                        </figure>
+                        <p>The same group-average connectome can also be represented as a network. This view below keeps only the strongest 5% of mean connections so the dominant edges remain visible.</p>
+                        <figure class="analysis-figure figure-wide">
+                            <img src="/projects/connectome-graph-analysis/images/mean-connectome-network.png" alt="Circular network diagram of 70 connectome regions showing the strongest five percent of mean structural connections" width="1507" height="1421" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 02</span> A network view of the mean connectome. Larger nodes have greater total connection strength; thicker, lighter edges have larger mean streamline counts. The circular layout is only schematic and does not represent brain anatomy.</figcaption>
+                        </figure>
+                    </section>
+
+                    <section aria-labelledby="features-heading">
+                        <h2 id="features-heading">Feature extraction</h2>
+                        <p>Each connectome was turned into one row of numbers. The features can be categorized into three families: graph features, topology features, and log-scaled edge weights.</p>
+
+                        <h3>Graph features</h3>
+                        <ul class="feature-list">
+                            <li><strong>Global efficiency:</strong> how efficiently regions can communicate through short paths. Stronger connections are treated as shorter distances.</li>
+                            <li><strong>Edge-weight statistics:</strong> the mean, standard deviation, median, and 25th and 75th percentiles of connection strength.</li>
+                            <li><strong>Modularity:</strong> how strongly the graph separates into communities that are more connected internally than they are to the rest of the network.</li>
+                            <li><strong>Characteristic path length:</strong> the average weighted shortest-path distance between regions.</li>
+                            <li><strong>Node strength:</strong> the total connection weight attached to each region.</li>
+                        </ul>
+                        <figure class="analysis-figure figure-wide">
+                            <img src="/projects/connectome-graph-analysis/images/graph-metrics-by-sex.png" alt="Four box-and-scatter plots comparing global efficiency, mean edge weight, modularity, and path length between sex codes 1 and 2" width="1782" height="1383" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 03</span> Raw graph summaries by sex code. The distributions differ most visibly in global efficiency and mean edge weight, but these plots are descriptive: they are not adjusted for covariates or total streamline count.</figcaption>
+                        </figure>
+
+                        <h3>Topology features</h3>
+                        <ul class="feature-list">
+                            <li><strong>Weighted clustering coefficient:</strong> whether a region's neighbors are also strongly connected to one another.</li>
+                            <li><strong>Betweenness centrality:</strong> how often a region lies on the shortest paths between other regions.</li>
+                            <li><strong>Closeness centrality:</strong> how close a region is to the rest of the network by weighted shortest paths.</li>
+                            <li><strong>Participation coefficient:</strong> whether a region spreads its connections across several communities instead of concentrating them within one.</li>
+                        </ul>
+
+                        <h3>Edge-weight features</h3>
+                        <p>While the graph and topology features summarize the network, the edge-weight features are more detailed and allow the model to capture the weight of every individual region-to-region connection.</p>
+                        <p>Each weight was transformed with <code>log10(weight + 1)</code> so the large weights do not overwhelm the smaller connections.</p>
+                    </section>
+
+                    <section aria-labelledby="model-heading">
+                        <h2 id="model-heading">Model and validation</h2>
+                        <p>The classifier is a random forest with 300 decision trees. The data was split into a 75% training set and a 25% holdout set, and the label proportions are similar in both. The performance is also validated using shuffled, stratified five-fold cross-validation.</p>
+                        <figure class="analysis-figure figure-wide">
+                            <img src="/projects/connectome-graph-analysis/images/feature-set-benchmark.png" alt="Horizontal bar chart comparing cross-validated balanced accuracy for six combinations of graph, topology, and connection-weight features" width="1786" height="1053" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 04</span> Five-fold comparison of the feature families. Connection weights carried most of the predictive signal, while combining them with graph summaries and regional topology produced the highest mean balanced accuracy.</figcaption>
+                        </figure>
+                    </section>
+
+                    <section aria-labelledby="results-heading">
+                        <h2 id="results-heading">Results</h2>
+                        <p class="result-lead">The full feature set performed best: 81.5% &plusmn; 3.8% balanced accuracy across five-fold cross-validation and 84.6% on the holdout set.</p>
+                        <ul class="feature-list results-list">
+                            <li><strong>Graph + topology + log edge weights:</strong> 81.5% cross-validated balanced accuracy</li>
+                            <li><strong>Log edge weights only:</strong> 80.6%</li>
+                            <li><strong>Graph features only:</strong> 75.8%</li>
+                            <li><strong>Topology features only:</strong> 74.7%</li>
+                        </ul>
+                        <figure class="analysis-figure figure-compact">
+                            <img src="/projects/connectome-graph-analysis/images/confusion-matrix.png" alt="Confusion matrix for the holdout set showing 21 correct and 4 incorrect predictions for sex code 1, and 23 correct and 4 incorrect predictions for sex code 2" width="1113" height="916" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 05</span> Holdout predictions. The model correctly classified 44 of 52 previously withheld participants (84.6%), performing similarly across both sex-code groups.</figcaption>
+                        </figure>
+                    </section>
+
+                    <section aria-labelledby="discussion-heading">
+                        <h2 id="discussion-heading">Discussion</h2>
+                        <p>This project demonstrates how structural connectomes can be represented as graphs, analyzed using graph-theoretic features, and used for machine-learning classification. However, this analysis is only exploratory because it includes a relatively small dataset. The results are limited by the quality and information available in the data. Overfitting is a key concern, as there are more features than subjects. A stronger follow-up study should be tested on an independent dataset and control more carefully for other baseline differences, such as age and total streamline count.</p>
+                    </section>
+                </div>
+            </div>
+
+            <nav class="project-switcher" aria-label="Project navigation">
+                <a href="/projects/ecg-device/"><span aria-hidden="true">&larr;</span> Previous / ecg-device</a>
+                <a href="/projects/hermes-local-layer/">Next / hermes-local-layer <span aria-hidden="true">&rarr;</span></a>
+            </nav>
+        </article>
+        <footer class="site-footer">&copy; 2026 Samuel Wu. All rights reserved.</footer>
+    </main>
+</body>
+</html>

@@ -3,315 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Samuel Wu's projects, interests, and path from investing toward neurotechnology.">
     <title>Samuel Wu</title>
-    <style>
-        :root {
-            color-scheme: light;
-            --bg: #f7f4ed;
-            --paper: #fffdf8;
-            --ink: #20201d;
-            --muted: #5f645f;
-            --line: #ddd5c7;
-            --accent: #2f6f73;
-            --accent-2: #a64f2b;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background:
-                radial-gradient(circle at top left, rgba(47, 111, 115, 0.13), transparent 34rem),
-                linear-gradient(135deg, #f7f4ed 0%, #eef5f2 100%);
-            color: var(--ink);
-            font-family: Georgia, "Times New Roman", serif;
-            line-height: 1.6;
-        }
-
-        main {
-            width: min(100%, 980px);
-            margin: 0 auto;
-            padding: 64px 24px;
-        }
-
-        .page {
-            display: grid;
-            gap: 32px;
-        }
-
-        .intro {
-            display: grid;
-            gap: 22px;
-            padding: 42px;
-            background: rgba(255, 253, 248, 0.82);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            box-shadow: 0 20px 60px rgba(32, 32, 29, 0.08);
-            text-align: center;
-            justify-items: center;
-        }
-
-        h1,
-        h2 {
-            margin: 0;
-            line-height: 1.12;
-            font-weight: 700;
-        }
-
-        h1 {
-            max-width: 760px;
-            font-size: clamp(1.7rem, 1.4rem + 0.8vw, 2.35rem);
-            letter-spacing: 0;
-        }
-
-        h2 {
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--accent);
-        }
-
-        p {
-            margin: 0;
-            max-width: 720px;
-            color: var(--muted);
-            font-size: 1.15rem;
-            text-align: center;
-        }
-
-        .lead {
-            font-size: clamp(1.15rem, 1.5vw, 1.3rem);
-            color: var(--ink);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-        }
-
-        .social-link {
-            display: inline-grid;
-            place-items: center;
-            width: 44px;
-            height: 44px;
-            border: 1px solid var(--line);
-            border-radius: 50%;
-            color: var(--accent);
-            background: var(--paper);
-            transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
-        }
-
-        .social-link:hover {
-            border-color: var(--accent);
-            color: var(--accent-2);
-            transform: translateY(-2px);
-        }
-
-        .social-link svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 24px;
-        }
-
-        .places-section {
-            grid-column: 1 / -1;
-        }
-
-        section {
-            display: grid;
-            justify-items: center;
-            padding: 30px;
-            background: rgba(255, 253, 248, 0.72);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .city-map {
-            width: min(100%, 840px);
-            height: auto;
-            overflow: visible;
-        }
-
-        .city-map .land {
-            fill: rgba(47, 111, 115, 0.08);
-            stroke: rgba(47, 111, 115, 0.22);
-            stroke-width: 2;
-        }
-
-        .city-map .route {
-            fill: none;
-            stroke: var(--accent);
-            stroke-width: 2;
-            stroke-dasharray: 3 8;
-            stroke-linecap: round;
-        }
-
-        .city-map marker path {
-            fill: var(--accent);
-        }
-
-        .city-map circle {
-            fill: var(--paper);
-            stroke: var(--accent);
-            stroke-width: 3;
-        }
-
-        .city-map text {
-            fill: var(--ink);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 17px;
-            font-weight: 650;
-            letter-spacing: 0;
-            text-anchor: middle;
-        }
-
-        .city-map .city-link {
-            cursor: pointer;
-        }
-
-        .city-map .city-link:hover circle {
-            fill: rgba(47, 111, 115, 0.12);
-        }
-
-        .city-map .city-link:hover text {
-            fill: var(--accent);
-        }
-
-        .city-map .distance {
-            fill: var(--accent-2);
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .city-map .long-hop {
-            stroke-width: 2.5;
-        }
-
-        .tagline {
-            color: var(--accent-2);
-            font-size: 1.35rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .stack {
-            display: grid;
-            gap: 16px;
-            justify-items: center;
-        }
-
-        .project-note {
-            width: min(100%, 640px);
-            border-top: 4px solid var(--accent);
-            padding-top: 18px;
-        }
-
-        .projects-list {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-            width: min(100%, 720px);
-        }
-
-        .project-link {
-            display: grid;
-            gap: 8px;
-            min-height: 124px;
-            padding: 22px;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: var(--paper);
-            color: var(--ink);
-            text-decoration: none;
-            transition: border-color 160ms ease, transform 160ms ease;
-        }
-
-        .project-link:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .project-link strong {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 1.05rem;
-        }
-
-        .project-link span {
-            color: var(--muted);
-            font-size: 0.98rem;
-        }
-
-        footer {
-            color: var(--muted);
-            font-size: 0.95rem;
-            margin-top: 32px;
-            text-align: center;
-        }
-
-        @media (max-width: 760px) {
-            main {
-                padding: 28px 16px;
-            }
-
-            .intro,
-            section {
-                padding: 24px;
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-list {
-                grid-template-columns: 1fr;
-            }
-
-            .city-map text {
-                font-size: 13px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="/project-pages.css">
+    <script src="/site-header.js" defer></script>
 </head>
-<body>
-    <main>
-        <div class="page">
-            <header class="intro">
-                <p class="tagline">Samuel Wu</p>
-                <h1>Hey! Welcome to my page.</h1>
-                <p class="lead">
-                    I share a little bit about myself here...
-                </p>
-                <nav class="social-links" aria-label="Social links">
-                    <a class="social-link" href="https://www.linkedin.com/in/samuelwu9/" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.32 8.02h4.36V23H.32V8.02zM8.01 8.02h4.18v2.05h.06c.58-1.1 2-2.26 4.12-2.26 4.41 0 5.23 2.9 5.23 6.67V23h-4.36v-7.55c0-1.8-.03-4.12-2.51-4.12-2.52 0-2.9 1.96-2.9 3.99V23H8.01V8.02z"></path>
-                        </svg>
-                    </a>
-                    <a class="social-link" href="https://github.com/samueljwu" aria-label="GitHub">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2.18c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.7 1.25 3.35.95.1-.74.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.47.11-3.06 0 0 .96-.31 3.16 1.18.92-.26 1.9-.38 2.88-.39.98.01 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.77.11 3.06.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.18c0 .31.21.67.79.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"></path>
-                        </svg>
-                    </a>
-                </nav>
-            </header>
+<body class="home-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header" data-site-header data-page="home"></header>
 
-            <div class="grid">
-                <section class="stack places-section" aria-labelledby="places-heading">
-                    <h2 id="places-heading">I Grew Up In Many Cities</h2>
+    <main class="home-main" id="main-content">
+        <header class="home-hero">
+            <h1>Samuel Wu</h1>
+            <p class="home-lead">Welcome to my page!</p>
+            <nav class="social-links" aria-label="Social links">
+                <a class="social-link" href="https://www.linkedin.com/in/samuelwu9/" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.32 8.02h4.36V23H.32V8.02zM8.01 8.02h4.18v2.05h.06c.58-1.1 2-2.26 4.12-2.26 4.41 0 5.23 2.9 5.23 6.67V23h-4.36v-7.55c0-1.8-.03-4.12-2.51-4.12-2.52 0-2.9 1.96-2.9 3.99V23H8.01V8.02z"></path>
+                    </svg>
+                </a>
+                <a class="social-link" href="https://github.com/samueljwu" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2.18c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.7 1.25 3.35.95.1-.74.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.47.11-3.06 0 0 .96-.31 3.16 1.18.92-.26 1.9-.38 2.88-.39.98.01 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.77.11 3.06.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.18c0 .31.21.67.79.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"></path>
+                    </svg>
+                </a>
+                <a class="social-link" href="mailto:samuelwuje@gmail.com" aria-label="Email Samuel" title="Email Samuel">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M2 4h20v16H2V4zm2 2v.6l8 5.3 8-5.3V6H4zm16 12V9l-8 5.3L4 9v9h16z"></path>
+                    </svg>
+                </a>
+            </nav>
+        </header>
+
+        <div class="home-flow">
+            <section class="home-block projects-block" aria-labelledby="projects-heading">
+                <h2 id="projects-heading">Projects</h2>
+                <div class="projects-list">
+                    <a class="project-link project-bvm" href="/projects/bvm-assist/">
+                        <span class="project-media project-media-placeholder" aria-hidden="true">
+                            <span>Photo forthcoming</span>
+                        </span>
+                        <span class="project-copy">
+                            <span class="project-type">Medical device</span>
+                            <strong>bvm-assist</strong>
+                            <span class="project-description">Project details coming soon.</span>
+                        </span>
+                        <span class="project-cta">Preview <span aria-hidden="true">&rarr;</span></span>
+                    </a>
+                    <a class="project-link project-ecg" href="/projects/ecg-device/">
+                        <span class="project-media project-media-placeholder" aria-hidden="true">
+                            <span>Photo forthcoming</span>
+                        </span>
+                        <span class="project-copy">
+                            <span class="project-type">Medical device</span>
+                            <strong>ecg-device</strong>
+                            <span class="project-description">Project details coming soon.</span>
+                        </span>
+                        <span class="project-cta">Preview <span aria-hidden="true">&rarr;</span></span>
+                    </a>
+                    <a class="project-link project-connectome" href="/projects/connectome-graph-analysis/">
+                        <span class="project-media">
+                            <img src="/projects/connectome-graph-analysis/images/mean-connectome.png" alt="Heatmap of the mean structural connectome across 70 Desikan brain regions, with two stronger blocks visible along the diagonal" width="1348" height="1239" loading="lazy" decoding="async">
+                        </span>
+                        <span class="project-copy">
+                            <span class="project-type">Connectomics</span>
+                            <strong>connectome-graph-analysis</strong>
+                            <span class="project-description">Exploratory graph and machine-learning analysis of connectome patterns.</span>
+                        </span>
+                        <span class="project-cta">Explore <span aria-hidden="true">&rarr;</span></span>
+                    </a>
+                    <a class="project-link project-hermes" href="/projects/hermes-local-layer/">
+                        <span class="project-media project-media-placeholder" aria-hidden="true">
+                            <span>Photo forthcoming</span>
+                        </span>
+                        <span class="project-copy">
+                            <span class="project-type">Agentic AI</span>
+                            <strong>hermes-local-layer</strong>
+                            <span class="project-description">Project details coming soon.</span>
+                        </span>
+                        <span class="project-cta">Preview <span aria-hidden="true">&rarr;</span></span>
+                    </a>
+                    <a class="project-link project-cb" href="/projects/cb-terminal/">
+                        <span class="project-media project-media-placeholder" aria-hidden="true">
+                            <span>Photo forthcoming</span>
+                        </span>
+                        <span class="project-copy">
+                            <span class="project-type">Finance tool</span>
+                            <strong>cb-terminal</strong>
+                            <span class="project-description">Project details coming soon.</span>
+                        </span>
+                        <span class="project-cta">Preview <span aria-hidden="true">&rarr;</span></span>
+                    </a>
+                </div>
+            </section>
+
+            <section id="about" class="home-block places-block" aria-labelledby="about-heading">
+                <h2 id="about-heading">About Me</h2>
+                <div class="places-heading">
+                    <p class="places-intro">I was born in Taiwan and have since called several cities across Asia and the United States home.</p>
+                    <p class="map-hint">Click a city to learn more! <span aria-hidden="true">&nearr;</span></p>
+                </div>
+                <div class="map-scroll">
                     <svg class="city-map" viewBox="0 0 840 420" role="img" aria-labelledby="city-map-title city-map-desc">
                         <title id="city-map-title">Cities Samuel grew up in</title>
-                        <desc id="city-map-desc">A rough geographic path from Taoyuan to Taipei, Culver, New York, and Hong Kong, with approximate distances in miles.</desc>
+                        <desc id="city-map-desc">A rough geographic path from Taoyuan to Taipei, Culver, New York, and Hong Kong, with approximate distances in miles. Each city is a link.</desc>
                         <defs>
                             <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
                                 <path d="M0,0 L8,4 L0,8 Z"></path>
@@ -333,93 +128,58 @@
                         <text class="distance" x="294" y="106">648 mi</text>
                         <text class="distance" x="552" y="344">8,050 mi</text>
 
-                        <a class="city-link" href="https://travel.tycg.gov.tw/en" aria-label="Taoyuan, Taiwan">
-                            <circle cx="660" cy="252" r="12"></circle>
+                        <a class="city-link" href="https://travel.tycg.gov.tw/en" aria-label="Taoyuan, Taiwan, opens external page" target="_blank" rel="noopener noreferrer">
+                            <circle cx="660" cy="252" r="13"></circle>
                             <text x="618" y="280">Taoyuan</text>
                             <text x="618" y="298">Taiwan</text>
                         </a>
 
-                        <a class="city-link" href="https://www.youtube.com/watch?v=z_fY1pj1VBw" aria-label="Taipei, Taiwan">
-                            <circle cx="724" cy="172" r="12"></circle>
+                        <a class="city-link" href="https://www.youtube.com/watch?v=z_fY1pj1VBw" aria-label="Taipei, Taiwan, opens external page" target="_blank" rel="noopener noreferrer">
+                            <circle cx="724" cy="172" r="13"></circle>
                             <text x="772" y="152">Taipei</text>
                             <text x="772" y="170">Taiwan</text>
                         </a>
 
-                        <a class="city-link" href="https://www.youtube.com/watch?v=gdHt6MVsCek" aria-label="Culver, Indiana">
-                            <circle cx="208" cy="124" r="12"></circle>
+                        <a class="city-link" href="https://www.youtube.com/watch?v=gdHt6MVsCek" aria-label="Culver, Indiana, opens external page" target="_blank" rel="noopener noreferrer">
+                            <circle cx="208" cy="124" r="13"></circle>
                             <text x="208" y="158">Culver</text>
                             <text x="208" y="176">IN, USA</text>
                         </a>
 
-                        <a class="city-link" href="https://www.youtube.com/watch?v=vk6014HuxcE" aria-label="New York, New York">
-                            <circle cx="364" cy="144" r="12"></circle>
+                        <a class="city-link" href="https://www.youtube.com/watch?v=vk6014HuxcE" aria-label="New York, New York, opens external page" target="_blank" rel="noopener noreferrer">
+                            <circle cx="364" cy="144" r="13"></circle>
                             <text x="364" y="178">New York</text>
                             <text x="364" y="196">NY, USA</text>
                         </a>
 
-                        <a class="city-link" href="https://www.imdb.com/title/tt0338564/" aria-label="Hong Kong SAR">
-                            <circle cx="734" cy="348" r="12"></circle>
+                        <a class="city-link" href="https://www.imdb.com/title/tt0338564/" aria-label="Hong Kong SAR, opens external page" target="_blank" rel="noopener noreferrer">
+                            <circle cx="734" cy="348" r="13"></circle>
                             <text x="734" y="394">Hong Kong SAR</text>
                         </a>
                     </svg>
-                </section>
-
-                <section class="stack places-section" aria-labelledby="curiosity-heading">
-                    <h2 id="curiosity-heading">Curiosity</h2>
-                    <p>
-                        I am driven by curiosity.
-                    </p>
-                    <p>
-                        In my career as an investor, I have studied a variety of companies ranging from tea chains to gold mines to drugmakers.
-                    </p>
-                    <p>
-                        Outside of work, I travel often to see the world. I also play a bit of saxophone, guitar, and piano.
-                    </p>
-                    <p>
-                        Lately, I've been learning everything I can about neurotech with the goal of making it my next career.
-                    </p>
-                </section>
-
-                <section class="stack" aria-labelledby="sports-heading">
-                    <h2 id="sports-heading">Sports</h2>
-                    <p>
-                        I love all sports, basketball in particular. The 2013-14 San Antonio Spurs is my favorite team of all time. The 2025-26 Spurs is becoming a close second.
-                    </p>
-                </section>
-
-                <section class="stack" aria-labelledby="film-tv-heading">
-                    <h2 id="film-tv-heading">Film &amp; TV</h2>
-                    <p>
-                        I love movies, TV series, and YouTube. I can’t pick a favorite movie or TV series because there are too many, but Breaking Bad and Better Call Saul are up there. I’m probably subscribed to more than 100 YouTube channels.
-                    </p>
-                </section>
-            </div>
-
-            <section class="stack" aria-labelledby="projects-heading">
-                <h2 id="projects-heading">Things I built</h2>
-                <p class="project-note">
-                    I build projects, sometimes just for fun. Check them out! Feedback is always welcome!
-                </p>
-                <div class="projects-list">
-                    <a class="project-link" href="https://github.com/samueljwu/connectome-graph-analysis">
-                        <strong>connectome-graph-analysis</strong>
-                        <span>An exploratory analysis using graph-theoretic features and machine learning to test whether connectome patterns can support subject sex prediction.</span>
-                    </a>
-                    <a class="project-link" href="https://github.com/samueljwu/hermes-local-layer">
-                        <strong>hermes-local-layer</strong>
-                        <span>My customized local layer for using Hermes Agent as a second brain: organizing thoughts, finding ideas, and adapting the system for personal use. Private data omitted.</span>
-                    </a>
-                    <a class="project-link" href="https://github.com/samueljwu/cb-terminal">
-                        <strong>cb-terminal</strong>
-                        <span>A local terminal for convertible bond analysis, built to organize non-standard chat quotes, technical prospectus details, and valuation time series with custom assumptions and parameters.</span>
-                    </a>
                 </div>
             </section>
 
-            <footer>
-                &copy; 2026 Samuel Wu. All rights reserved.
-            </footer>
+            <section class="home-block curiosity-block" aria-labelledby="curiosity-heading">
+                <h2 id="curiosity-heading">Interests</h2>
+                <div class="about-copy">
+                    <p>I am curious about a wide range of topics, which led me to pursue my first career in investments. I started my career covering the utilities and alternative energy sectors, and then transitioned into a generalist role, investing in companies ranging from biotech to semiconductor companies to tea chains.</p>
+                    <p>Around 2023&ndash;24, I became seriously interested in neuroscience and increasingly fascinated by the human brain. I am particularly interested in non-invasive brain-computer interfaces and have decided that my ultimate goal is to become a leader in the field who creates devices that can treat diseases and improve people&rsquo;s quality of life.</p>
+                    <p>To prepare for this transition, I started pursuing a part-time master&rsquo;s degree in Neuroengineering at Johns Hopkins University while working as an investment analyst at a hedge fund. I have spent much of my time reading, learning, and building new projects, and it's been a lot of fun!</p>
+                </div>
+            </section>
+
+            <section class="interests-grid" aria-labelledby="hobbies-heading">
+                <article>
+                    <h2 id="hobbies-heading">Hobbies</h2>
+                    <p>Basketball is my main sport, and I try to play every week. The 2013&ndash;14 San Antonio Spurs team is my favorite team of all time (Go Spurs Go!). I also enjoy following baseball, although I can barely play the sport...</p>
+                    <p>Outside of sports, I watch a lot of movies, TV, and YouTube. Some of my favorites are Fight Club, Breaking Bad, and The Slow Mo Guys.</p>
+                    <p>When I get longer breaks, I try to travel as much as possible to experience different cultures. South America and Africa are the continents, aside from Antarctica, that I haven&rsquo;t explored yet, and I hope to visit both soon!</p>
+                </article>
+            </section>
         </div>
+
+        <footer class="site-footer">&copy; 2026 Samuel Wu. All rights reserved.</footer>
     </main>
 </body>
 </html>
