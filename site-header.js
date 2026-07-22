@@ -1,4 +1,6 @@
 (() => {
+    disableClipboardActions();
+
     const header = document.querySelector("[data-site-header]");
 
     if (!header) {
@@ -53,5 +55,26 @@
         }
 
         return link;
+    }
+
+    function disableClipboardActions() {
+        document.documentElement.style.userSelect = "none";
+        document.documentElement.style.webkitUserSelect = "none";
+        document.documentElement.style.webkitTouchCallout = "none";
+
+        ["copy", "cut", "paste", "selectstart"].forEach((eventName) => {
+            document.addEventListener(eventName, (event) => {
+                event.preventDefault();
+            }, true);
+        });
+
+        document.addEventListener("keydown", (event) => {
+            const isClipboardShortcut = (event.ctrlKey || event.metaKey)
+                && ["c", "x", "v"].includes(event.key.toLowerCase());
+
+            if (isClipboardShortcut) {
+                event.preventDefault();
+            }
+        }, true);
     }
 })();
