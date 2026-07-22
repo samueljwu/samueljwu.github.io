@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A placeholder for Samuel Wu's Hermes local layer project.">
+    <meta name="description" content="A harness-first local layer around Hermes Agent that organizes knowledge, reading, thoughts, tasks, repository discovery, and stock screening.">
     <title>Hermes Local Layer | Samuel Wu</title>
     <link rel="stylesheet" href="/project-detail.css">
     <script src="/site-header.js" defer></script>
@@ -17,9 +17,123 @@
             <header class="case-hero">
                 <p class="eyebrow">Agentic AI</p>
                 <h1>hermes-local-layer</h1>
-                <p class="project-lead">More details will be added here soon.</p>
-                <p class="placeholder-status">Project details coming soon</p>
+                <p class="project-lead">A local layer around Hermes Agent that serves as my second brain.</p>
+                <div class="actions">
+                    <a class="button" href="https://github.com/samueljwu/hermes-local-layer">View source on GitHub <span aria-hidden="true">&nearr;</span></a>
+                </div>
             </header>
+
+            <div class="case-content">
+                <div class="content-main">
+                    <section aria-labelledby="overview-heading">
+                        <h2 id="overview-heading">Overview</h2>
+                        <p>This is the custom local layer I built around <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a>, intended as my “second brain.” I wanted an agent that could help organize my thoughts and act as a knowledge archive because I am almost always multitasking and switching between knowledge domains. I interact with it through the CLI and Discord, mainly using it across six applications: wiki, feed, journal, tasks, repo-scout, and stock-screener.</p>
+                        <p>Each application is supported by specific skills and accessible through a dedicated Discord channel. The channel selects the appropriate workflow, and each application’s harness controls its permitted operations. The applications are narrowly defined with explicit boundaries, but they can work together through limited, controlled paths. This separation prevents context and data contamination.</p>
+                        <figure class="analysis-figure system-map-figure">
+                            <pre class="system-map" aria-label="Architecture map of the Hermes local layer">                         ┌──────────────────────────────┐
+                         │      UPSTREAM HERMES AGENT    │
+                         │ CLI · Gateway · Tools · Cron   │
+                         │ Skills · Memory · Plugins      │
+                         └──────────────┬───────────────┘
+                                        │
+                                        ▼
+             ┌─────────────────────────────────────────────┐
+             │        LOCAL /home/hermes CUSTOM LAYER       │
+             │   domain systems + harnesses + Discord UI    │
+             └──────────────────────┬──────────────────────┘
+                                    │
+              harness-first rule: orient → validate → mutate → verify
+                                    │
+┌───────────────────────────────────┼───────────────────────────────────┐
+│                                   │                                   │
+▼                                   ▼                                   ▼
+┌──────────────┐             ┌──────────────┐                    ┌──────────────┐
+│   JOURNAL    │             │    TASKS     │                    │     WIKI     │
+│ thoughts     │             │ commitments  │                    │ sourced facts│
+│ journal_ops  │             │ task_ops     │                    │ wiki_ops     │
+└──────┬───────┘             └──────┬───────┘                    └──────┬───────┘
+       │ read-only wiki context     │ task/project signals              │ concepts
+       │                            │                                    │
+       └────────────────────────────┼────────────────────────────────────┘
+                                    ▼
+                            ┌──────────────┐
+                            │     FEED     │
+                            │ interest map │
+                            │ feed_ops     │
+                            └──────┬───────┘
+                                   │ picks + generated page
+                                   ▼
+                            ┌──────────────┐
+                            │    /feed/    │
+                            └──────────────┘
+
+┌──────────────┐             ┌────────────────┐                  ┌──────────────┐
+│  REPO SCOUT  │             │  STOCK SCREEN  │                  │ STATIC SITE  │
+│ GitHub finds │             │  OHLCV scans   │                  │ homepage/dist│
+│ read-only    │             │  /stocks/      │                  │ /wiki /feed  │
+└──────┬───────┘             └───────┬────────┘                  │ /stocks     │
+       │                             │                           └──────┬───────┘
+       ▼                             ▼                                  ▲
+┌──────────────┐             ┌────────────────┐                         │
+│ #repo-scout  │             │#stock-screener │                         │
+└──────────────┘             └────────────────┘                         │
+                                                                        │
+┌───────────────────────────────────────────────────────────────────────┴──┐
+│ DISCORD WORKSPACES                                                        │
+│ #journal · #wiki · #tasks · #feed · #repo-scout · #stock-screener         │
+│ channel context chooses the workflow; each harness owns the safe write path│
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ SAFETY / REVIEW LAYER                                                     │
+│ REVIEW_PROTOCOL.md · backup/documentation/security guards · audits         │
+│ protects backups, generated artifacts, docs, routes, and subsystem borders │
+└──────────────────────────────────────────────────────────────────────────┘</pre>
+                            <figcaption><span>Figure 01</span> Architecture map of hermes-local-layer.</figcaption>
+                        </figure>
+                    </section>
+
+                    <section aria-labelledby="wiki-heading">
+                        <h2 id="wiki-heading">Wiki</h2>
+                        <p>The idea of a self-improving wiki-LLM was popularized by <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f#file-llm-wiki-md">Andrej Karpathy’s gist</a>.</p>
+                        <p>I added skills specifically for digesting long-form PDFs because I consume many academic papers and sell-side equity research reports, which often contain unwanted artifacts. The wiki is accessible through chat and also a custom website on the same private network as the agent. The site builds the Markdown files into static HTML, which is helpful for displaying mathematical equations, charts, and graphs that are harder to read in raw Markdown.</p>
+                        <p>When I ask the agent a question, it uses the wiki’s semantic index and graph to identify the most relevant pages, then reads the underlying Markdown before composing an answer. These queries also create a feedback loop and guides improvements to the wiki over time.</p>
+                        <p>Other features include a semantic graph that shows relationships among concepts, an activity log that records changes to the wiki, and a linting and review workflow that identifies opportunities for improvement.</p>
+                        <figure class="analysis-figure video-figure">
+                            <video autoplay muted playsinline preload="metadata" width="640" height="384" data-replay-delay="3000" aria-label="Looping animation of the Hermes wiki semantic graph">
+                                <source src="/projects/hermes-local-layer/images/wikigraph.mp4" type="video/mp4">
+                                Your browser does not support the embedded video.
+                            </video>
+                            <figcaption><span>Figure 02</span> The interactive semantic graph connects related concepts across the wiki.</figcaption>
+                        </figure>
+                    </section>
+
+                    <section aria-labelledby="feed-heading">
+                        <h2 id="feed-heading">Feed</h2>
+                        <p>This is a personalized twice-daily reading feed that recommends materials based on my interests. Its purpose is to keep me up to date on topics that interest me while broadening my scope with content I might not otherwise encounter. Each digest contains five items: three related to my existing interests and two exploratory picks intended to introduce less familiar topics. The interest profile is updated using recent signals from the wiki, journal, and tasks, as well as explicit feedback on exploratory recommendations. The feed draws from a curated list of approved sources.</p>
+                    </section>
+
+                    <section aria-labelledby="journal-heading">
+                        <h2 id="journal-heading">Journal</h2>
+                        <p>This is a smart notepad for capturing unstructured thoughts. I am still a big fan of the iOS Notes app, but the thoughts I capture there can be messy, scattered, and lacking context. This application turns them into clean, structured thought cards while preserving my original wording. It then categorizes and saves each entry so I can query the agent and reflect on how my ideas have evolved over time. It can also consult the wiki through a read-only harness for possible interpretations or connections, while keeping that external context clearly separate from what I originally wrote.</p>
+                    </section>
+
+                    <section aria-labelledby="tasks-heading">
+                        <h2 id="tasks-heading">Tasks</h2>
+                        <p>This is a smart reminder and task manager that accepts natural-language commands and manages pending tasks, due dates, priorities, recurrence, tags, reminders, and completion history. For example, “send xmas cards dec 1” creates a pending task due on December 1. Automated watchdogs then post reminders in the Discord <code>#tasks</code> channel at the requested times.</p>
+                    </section>
+
+                    <section aria-labelledby="repo-scout-heading">
+                        <h2 id="repo-scout-heading">Repo-scout</h2>
+                        <p>Repo-scout is a read-only GitHub project discovery tool that finds interesting projects. It applies various filters and ranks the resulting shortlist against my interests. Feedback on previous suggestions can adjust later rankings. Repo-scout only produces recommendations and takes no further action.</p>
+                    </section>
+
+                    <section aria-labelledby="stock-screener-heading">
+                        <h2 id="stock-screener-heading">Stock-screener</h2>
+                        <p>Stock-screener is a standalone weekly workflow that runs technical scans and helps me identify potential investment opportunities. It is still under development, with room for more sophisticated screening features.</p>
+                    </section>
+                </div>
+            </div>
 
             <nav class="project-switcher" aria-label="Project navigation">
                 <a href="/projects/connectome-graph-analysis/"><span aria-hidden="true">&larr;</span> Previous / connectome</a>
@@ -28,5 +142,20 @@
         </article>
         <footer class="site-footer">&copy; 2026 Samuel Wu. All rights reserved.</footer>
     </main>
+    <script>
+        const replayVideo = document.querySelector("[data-replay-delay]");
+
+        if (replayVideo) {
+            replayVideo.addEventListener("ended", () => {
+                const delay = Number.parseInt(replayVideo.dataset.replayDelay, 10) || 0;
+
+                window.setTimeout(() => {
+                    replayVideo.currentTime = 0;
+                    const replay = replayVideo.play();
+                    if (replay) replay.catch(() => {});
+                }, delay);
+            });
+        }
+    </script>
 </body>
 </html>

@@ -136,7 +136,8 @@
 }
 
 @media (min-width: 761px) {
-    .connectome-project .content-main section > h2 {
+    .connectome-project .content-main section > h2,
+    .hermes-project .content-main section > h2 {
         grid-row: 1;
     }
 }
@@ -238,6 +239,33 @@ code {
     height: auto;
     border: 2px solid var(--rule-strong);
     background: #fff;
+}
+
+.video-figure video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--rule-strong);
+    background: #050505;
+}
+
+.system-map-figure {
+    min-width: 0;
+}
+
+.system-map {
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 12px 0;
+    overflow-x: auto;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: clamp(0.58rem, 0.92vw, 0.76rem);
+    line-height: 1.4;
+    scrollbar-color: var(--accent) transparent;
 }
 
 .analysis-figure figcaption {
