@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A placeholder for Samuel Wu's CB terminal project.">
+    <meta name="description" content="CB Terminal is a local terminal built for convertible bond analysis.">
     <title>CB Terminal | Samuel Wu</title>
-    <link rel="stylesheet" href="/project-detail.css">
+    <link rel="stylesheet" href="/project-detail.css?v=b7fddcc23070">
     <script src="/site-header.js" defer></script>
 </head>
 <body class="project-body cb-project">
@@ -17,9 +17,204 @@
             <header class="case-hero">
                 <p class="eyebrow">Finance tool</p>
                 <h1>cb-terminal</h1>
-                <p class="project-lead">More details will be added here soon.</p>
-                <p class="placeholder-status">Project details coming soon</p>
+                <p class="project-lead">Local terminal built for convertible bond analysis.</p>
+                <div class="actions">
+                    <a class="button" href="https://github.com/samueljwu/cb-terminal" target="_blank" rel="noopener noreferrer">View source on GitHub <span aria-hidden="true">&nearr;</span></a>
+                </div>
             </header>
+
+            <div class="case-content">
+                <div class="content-main">
+                    <section aria-labelledby="problem-heading">
+                        <h2 id="problem-heading">The problem</h2>
+                        <p>Convertible bond (CB) trading still requires a lot of manual oversight: most trades are executed in chatrooms, and price quotes are not standardized across brokers. As every bond has different terms and features, CBs are inherently complex instruments. Trading is further complicated because execution is sometimes on a “hedged basis” (e.g., fixing the pricing relationship between the bond and the underlying stock).</p>
+                        <p>Due to these factors, existing financial software often lacks the ability to provide comprehensive time-series analysis, and customized tools are preferred for valuation and analytics. Therefore, the goal is to build a tool that is tailored for convertible bond analysis and supports better trading decisions.</p>
+                    </section>
+
+                    <section aria-labelledby="workflow-heading">
+                        <h2 id="workflow-heading">Workflow</h2>
+                        <figure class="analysis-figure workflow-figure">
+                            <div class="workflow-graph" role="img" aria-label="CB Terminal workflow from source documents and market data through review, storage, valuation, and analysis">
+                                <div class="workflow-stage">
+                                    <p class="workflow-label">Inputs</p>
+                                    <div class="workflow-branches workflow-branches-three">
+                                        <div class="workflow-node">
+                                            <span>01A</span>
+                                            <strong>Termsheet or prospectus</strong>
+                                            <small>PDF</small>
+                                        </div>
+                                        <div class="workflow-node">
+                                            <span>01B</span>
+                                            <strong>CB price history</strong>
+                                            <small>CSV market data</small>
+                                        </div>
+                                        <div class="workflow-node">
+                                            <span>01C</span>
+                                            <strong>Stock, FX price history</strong>
+                                            <small>CSV / XLSX market data</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="workflow-connector" aria-hidden="true"></div>
+
+                                <div class="workflow-stage">
+                                    <p class="workflow-label">Ingest &amp; normalize</p>
+                                    <div class="workflow-branches">
+                                        <div class="workflow-node">
+                                            <span>02A</span>
+                                            <strong>Extract terms with evidence</strong>
+                                            <small>Candidate values retain page and snippet provenance</small>
+                                        </div>
+                                        <div class="workflow-node">
+                                            <span>02B</span>
+                                            <strong>Classify &amp; clean histories</strong>
+                                            <small>Raw observations remain available for audit</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="workflow-connector" aria-hidden="true"></div>
+
+                                <div class="workflow-node workflow-node-wide">
+                                    <span>03</span>
+                                    <strong>Review terms &amp; match identifiers</strong>
+                                    <small>Approve the contract, then match the exact CB, underlying equity, and FX series</small>
+                                </div>
+
+                                <div class="workflow-connector" aria-hidden="true"></div>
+
+                                <div class="workflow-node workflow-node-wide">
+                                    <span>04</span>
+                                    <strong>Build canonical research history</strong>
+                                    <small>SQLite catalog + evidence-linked contract + valuation-ready dated rows</small>
+                                </div>
+
+                                <div class="workflow-connector" aria-hidden="true"></div>
+
+                                <div class="workflow-node workflow-node-wide">
+                                    <span>05</span>
+                                    <strong>Run the valuation model</strong>
+                                    <small>Replay every row under explicit assumptions</small>
+                                </div>
+
+                                <div class="workflow-connector" aria-hidden="true"></div>
+
+                                <div class="workflow-stage">
+                                    <p class="workflow-label">Decision outputs</p>
+                                    <div class="workflow-branches workflow-branches-three">
+                                        <div class="workflow-node">
+                                            <span>06A</span>
+                                            <strong>Valuation metrics</strong>
+                                            <small>IV &middot; implied spread &middot; bond floor &middot; cheap/rich</small>
+                                        </div>
+                                        <div class="workflow-node">
+                                            <span>06B</span>
+                                            <strong>Time series</strong>
+                                            <small>Implied vol &middot; delta &middot;</small>
+                                        </div>
+                                        <div class="workflow-node">
+                                            <span>06C</span>
+                                            <strong>Audits</strong>
+                                            <small>history &middot; audit trail</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <figcaption><span>Figure 01</span> Workflow illustration.</figcaption>
+                        </figure>
+                    </section>
+
+                    <section aria-labelledby="features-heading">
+                        <h2 id="features-heading">The terminal</h2>
+                        <p>Screenshots of the assumptions and valuation output pages:</p>
+                        <figure class="analysis-figure product-figure">
+                            <img src="/projects/cb-terminal/images/assumptions.png" alt="CB Terminal assumptions screen with volatility, credit spread, borrow cost, dividend yield, risk-free rate, model, and scenario inputs" width="988" height="509" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 02</span> Assumptions are explicit, reviewable, and can be saved as reproducible scenarios before pricing.</figcaption>
+                        </figure>
+                        <figure class="analysis-figure product-figure">
+                            <img src="/projects/cb-terminal/images/output.png" alt="CB Terminal valuation output showing market price, fair value, parity, bond floor, relative-value drivers, and volatility charts" width="1731" height="1085" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 03</span> The output presents valuation, cheap/rich, market drivers, and volatility comparisons in one view.</figcaption>
+                        </figure>
+                    </section>
+
+                    <section aria-labelledby="model-heading">
+                        <h2 id="model-heading">The valuation model</h2>
+                        <p>The production model, <code>tf_split_tree:v2</code>, is a one-factor, constant-parameter Tsiveriotis&ndash;Fernandes (TF) lattice. It combines a recombining Cox&ndash;Ross&ndash;Rubinstein stock tree with a split valuation: conversion-contingent value is discounted at the risk-free rate, while cash-only value is discounted at the risk-free rate plus a credit spread. <a class="citation" href="#ref-crr">[1]</a> <a class="citation" href="#ref-tf">[2]</a></p>
+
+                        <h3>1. Build the stock tree</h3>
+                        <p>Under the risk-neutral measure, the stock follows an effective-carry process:</p>
+                        <div class="model-equation" role="math" aria-label="d S over S equals r minus q minus b, times d t, plus sigma d W">
+                            <span><var>dS</var> / <var>S</var> = (<var>r</var> &minus; <var>q</var> &minus; <var>b</var>)<var>dt</var> + <var>&sigma;</var><var>dW</var></span>
+                        </div>
+                        <p class="equation-note">Where <var>S</var> is the underlying stock price, <var>r</var> is the risk-free rate, <var>q</var> is the dividend yield, <var>b</var> is the stock-borrow cost, <var>&sigma;</var> is annualized volatility, <var>dt</var> is a small time interval, and <var>dW</var> is a random price shock.</p>
+                        <p>For a step of length <var>&Delta;t</var>, the CRR moves and risk-neutral probability are:</p>
+                        <div class="model-equation model-equation-stack" role="math" aria-label="u equals exponential sigma square root delta t; d equals one over u; p equals exponential r minus q minus b times delta t minus d, divided by u minus d">
+                            <span><var>u</var> = e<sup><var>&sigma;</var>&radic;<var>&Delta;t</var></sup>, &nbsp; <var>d</var> = 1 / <var>u</var></span>
+                            <span><var>p</var> = [e<sup>(<var>r</var>&minus;<var>q</var>&minus;<var>b</var>)<var>&Delta;t</var></sup> &minus; <var>d</var>] / (<var>u</var> &minus; <var>d</var>)</span>
+                        </div>
+                        <p class="equation-note">Where <var>u</var> and <var>d</var> are the stock-price multipliers for an up or down move, <var>p</var> is the risk-neutral probability of an up move, 1&minus;<var>p</var> is the probability of a down move, <var>&Delta;t</var> is one tree step, and <var>e</var> denotes exponential compounding.</p>
+
+                        <h3>2. Split equity and cash value</h3>
+                        <p>At each node, total CB value <var>V</var> is split into an equity/conversion component <var>E</var> and a cash-only component <var>C</var>. If <var>s</var> is the credit spread:</p>
+                        <div class="model-equation model-equation-stack" role="math" aria-label="E and C are discounted expected values; V equals E plus C">
+                            <span><var>E</var> = e<sup>&minus;<var>r&Delta;t</var></sup>[<var>pE</var><sub>up</sub> + (1&minus;<var>p</var>)<var>E</var><sub>down</sub>]</span>
+                            <span><var>C</var> = e<sup>&minus;(<var>r</var>+<var>s</var>)<var>&Delta;t</var></sup>[<var>pC</var><sub>up</sub> + (1&minus;<var>p</var>)<var>C</var><sub>down</sub>]</span>
+                            <span><var>V</var> = <var>E</var> + <var>C</var></span>
+                        </div>
+                        <p class="equation-note">Where <var>E</var> is the conversion-linked component, <var>C</var> is the cash-only component, <var>V</var> is their combined value, <var>s</var> is the issuer credit spread, and the up and down subscripts refer to the two possible next-step nodes.</p>
+                        <p>Conversion sets (<var>E</var>, <var>C</var>) = (<var>kS</var>, 0), where <var>k</var> is the conversion ratio. A cash put sets (<var>E</var>, <var>C</var>) = (0, <var>P</var>). Coupons are added at their payment nodes before the holder chooses whether to continue or convert.</p>
+
+                        <h3>3. Apply holder and issuer rights</h3>
+                        <p>The lattice works backward through each date, applying the holder&rsquo;s floor <var>L</var> and the issuer&rsquo;s ceiling <var>H</var> simultaneously. The issuer ceiling is the greater of the cash call price and the value received through forced conversion:</p>
+                        <div class="model-equation model-equation-stack" role="math" aria-label="L equals the maximum of eligible conversion value and eligible put price; H equals the maximum of call price and forced conversion value; node value equals the maximum of L and the minimum of continuation value and H">
+                            <span><var>L</var> = max(eligible conversion value, eligible put price)</span>
+                            <span><var>H</var> = max(call price, forced-conversion value)</span>
+                            <span><var>V</var><sub>node</sub> = max[<var>L</var>, min(<var>V</var><sub>continuation</sub>, <var>H</var>)]</span>
+                        </div>
+                        <p class="equation-note">Where <var>L</var> is the value floor created by the holder&rsquo;s conversion and put rights, <var>H</var> is the ceiling created by the issuer&rsquo;s call right, and <var>V</var><sub>continuation</sub> is the value of holding the bond for another step.</p>
+                        <p>At maturity, the bond pays the greater of cash redemption plus the final coupon and conversion value:</p>
+                        <div class="model-equation" role="math" aria-label="terminal value equals the maximum of redemption plus final coupon and conversion ratio times terminal stock price">
+                            <span><var>V</var><sub>T</sub> = max(redemption + final coupon, <var>kS</var><sub>T</sub>)</span>
+                        </div>
+                        <p class="equation-note">Where <var>V</var><sub>T</sub> is the bond value at maturity, <var>k</var> is the number of shares received per bond, and <var>S</var><sub>T</sub> is the stock price at maturity.</p>
+                        <p>This backward induction models coupons, early conversion, scheduled puts, multiple call schedules, and maturity redemption in one framework. The engine also calculates parity, delta, conventional yield to maturity and yield to put, and implied volatility conditional on the selected credit spread.</p>
+                    </section>
+
+                    <section aria-labelledby="limits-heading">
+                        <h2 id="limits-heading">Judgment &amp; limits</h2>
+                        <ul class="feature-list">
+                            <li><strong>Flat inputs:</strong> rates, credit spread, volatility, dividends, and borrow cost remain constant throughout each valuation run; term structures and changing market regimes are not modeled.</li>
+                            <li><strong>Credit-risk approximation:</strong> the TF split-discounting approach has known shortfalls. For example, TF applies a credit spread to the bond-like portion instead of modeling default directly. Therefore, recovery, the stock-price reaction to default, and the relationship between credit and equity risk are handled only implicitly, which can cause inconsistencies around calls and conversion.</li>
+                            <li><strong>Contract details:</strong> some features ncluding call notice periods, conversion-price resets, dilution adjustments, and event-triggered puts are simplified or not yet supported.</li>
+                            <li><strong>Cross-currency simplification:</strong> the one-factor model omits FX volatility, stock/FX correlation, and quanto effects.</li>
+                            <li><strong>Numerical and data sensitivity:</strong> results depend on tree resolution, clean market histories, correct identifiers, currency conventions, and the selected risk-free curve.</li>
+                        </ul>
+                    </section>
+
+                    <section aria-labelledby="references-heading">
+                        <h2 id="references-heading">References</h2>
+                        <ol class="reference-list">
+                            <li id="ref-crr">
+                                <span>[1]</span>
+                                <p>Cox, J. C., Ross, S. A., &amp; Rubinstein, M. (1979). &ldquo;Option pricing: A simplified approach.&rdquo; <cite>Journal of Financial Economics, 7</cite>(3), 229&ndash;263. <a href="https://doi.org/10.1016/0304-405X(79)90015-1" target="_blank" rel="noopener noreferrer">DOI <span aria-hidden="true">&nearr;</span></a></p>
+                            </li>
+                            <li id="ref-tf">
+                                <span>[2]</span>
+                                <p>Tsiveriotis, K., &amp; Fernandes, C. (1998). &ldquo;Valuing convertible bonds with credit risk.&rdquo; <cite>The Journal of Fixed Income, 8</cite>(2), 95&ndash;102. <a href="https://doi.org/10.3905/jfi.1998.408243" target="_blank" rel="noopener noreferrer">DOI <span aria-hidden="true">&nearr;</span></a></p>
+                            </li>
+                            <li id="ref-afv">
+                                <span>[3]</span>
+                                <p>Ayache, E., Forsyth, P. A., &amp; Vetzal, K. R. (2003). &ldquo;Valuation of convertible bonds with credit risk.&rdquo; <cite>The Journal of Derivatives, 11</cite>(1), 9&ndash;29. <a href="https://doi.org/10.3905/jod.2003.319208" target="_blank" rel="noopener noreferrer">DOI <span aria-hidden="true">&nearr;</span></a></p>
+                            </li>
+                            <li id="ref-comparison">
+                                <span>[4]</span>
+                                <p>Zabolotnyuk, Y., Jones, R., &amp; Veld, C. (2010). &ldquo;An empirical comparison of convertible bond valuation models.&rdquo; <cite>Financial Management, 39</cite>(2), 675&ndash;706. <a href="https://doi.org/10.1111/j.1755-053X.2010.01088.x" target="_blank" rel="noopener noreferrer">DOI <span aria-hidden="true">&nearr;</span></a></p>
+                            </li>
+                        </ol>
+                    </section>
+                </div>
+            </div>
 
             <nav class="project-switcher project-switcher-last" aria-label="Project navigation">
                 <a href="/projects/hermes-local-layer/"><span aria-hidden="true">&larr;</span> Previous / hermes-local-layer</a>

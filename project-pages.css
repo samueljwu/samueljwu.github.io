@@ -305,6 +305,11 @@ a:focus-visible {
     object-fit: contain;
 }
 
+.project-cb .project-media img {
+    object-fit: cover;
+    object-position: left top;
+}
+
 .project-media-placeholder {
     background:
         repeating-linear-gradient(
