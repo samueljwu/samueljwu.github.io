@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A placeholder for Samuel Wu's ECG device project.">
+    <meta name="description" content="An early breadboard ECG prototype and Samuel Wu's first device project.">
     <title>ECG Device | Samuel Wu</title>
     <link rel="stylesheet" href="/project-detail.css">
     <script src="/site-header.js" defer></script>
@@ -15,11 +15,59 @@
     <main class="project-main" id="main-content">
         <article class="case-study">
             <header class="case-hero">
-                <p class="eyebrow">Medical device</p>
+                <p class="eyebrow">Biomedical device</p>
                 <h1>ecg-device</h1>
-                <p class="project-lead">More details will be added here soon.</p>
-                <p class="placeholder-status">Project details coming soon</p>
+                <p class="project-lead">A breadboard ECG prototype (for now).</p>
+                <p class="placeholder-status">Project preview</p>
             </header>
+
+            <div class="case-content">
+                <div class="content-main">
+                    <section aria-labelledby="prototype-heading">
+                        <h2 id="prototype-heading">Breadboard prototype</h2>
+                        <p>This is my first biomedical device project and my first time converting a physiological signal into a functioning hardware system. The prototype acquires an ECG signal through electrodes, amplifies it in two stages, filters it, and sends the adjusted signal to a seeed studio XIAO ESP32-S3 for analog-to-digital conversion and serial plotting.</p>
+                        <p>At the input, two matched 47.5 k&Omega; resistors and a 10 nF capacitor form a differential low-pass filter with a nominal cutoff frequency of approximately 168 Hz.</p>
+                        <p>The first stage of amplification uses an INA128P instrumentation amplifier with the 1 k&Omega; gain-setting resistor producing a gain of 51. A reference voltage shifts the amplifier outputs around a mid-supply baseline rather than ground.</p>
+                        <p>The second stage uses an LM358P operational amplifier as an active inverting band-pass filter. The 4.7 &micro;F input capacitor and 50 k&Omega; resistor create a nominal 0.68 Hz high-pass cutoff. The 1 M&Omega; feedback resistor provides a gain magnitude of 20, and the parallel 6.8 nF capacitor creates a 23.4 Hz low-pass filter. Together, the two amplifier stages produce a gain magnitude of 1,020.</p>
+                        <div class="prototype-photo-grid">
+                            <figure class="analysis-figure">
+                                <img src="/projects/ecg-device/images/breadboard-prototype.jpg" alt="Top view of the ECG breadboard prototype with amplifier circuitry, electrodes, a control knob, and a Seeed Studio microcontroller" width="3024" height="4032" loading="lazy" decoding="async">
+                                <figcaption><span>Figure 01</span> The assembled breadboard prototype.</figcaption>
+                            </figure>
+                            <figure class="analysis-figure">
+                                <img src="/projects/ecg-device/images/filter-design-notes.jpg" alt="Whiteboard calculations and circuit sketches for the ECG amplifier and high-pass and low-pass filters" width="1280" height="1707" loading="lazy" decoding="async">
+                                <figcaption><span>Figure 02</span> Early calculations and circuit sketches.</figcaption>
+                            </figure>
+                        </div>
+                        <figure class="analysis-figure">
+                            <img src="/projects/ecg-device/images/breadboard-schematic.png" alt="ECG breadboard schematic showing the differential input filter, INA128P instrumentation amplifier, LM358P filter and gain stage, and Seeed Studio microcontroller" width="1381" height="513" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 03</span> Schematic of the breadboard signal chain.</figcaption>
+                        </figure>
+
+                        <figure class="analysis-figure video-figure figure-compact">
+                            <video autoplay muted playsinline preload="metadata" width="640" height="320" data-replay-delay="3000" aria-label="Live signal output from the breadboard ECG prototype">
+                                <source src="/projects/ecg-device/images/breadboard-output.mp4" type="video/mp4">
+                                Your browser does not support the embedded video.
+                            </video>
+                            <figcaption><span>Figure 04</span> The breadboard prototype producing a live signal trace.</figcaption>
+                        </figure>
+                    </section>
+
+                    <section aria-labelledby="pcb-heading">
+                        <h2 id="pcb-heading">Next: a custom PCB</h2>
+                        <p>Before moving to a custom PCB, I would like to address the current design limitations:</p>
+                        <ul class="feature-list">
+                            <li><strong>High first-stage gain before DC blocking:</strong> Motion artifacts and electrode offsets can saturate the INA128 before the 0.68 Hz high-pass filter.</li>
+                            <li><strong>High total gain (&asymp;1,020&times;):</strong> Large artifacts can drive the output into the supply rails.</li>
+                            <li><strong>Narrow bandwidth (&asymp;0.68&ndash;23 Hz):</strong> This range is usable, but it attenuates some ECG morphology, including higher-frequency QRS content.</li>
+                            <li><strong>First-order filtering only:</strong> Second- or fourth-order filters would reject unwanted frequencies more effectively.</li>
+                            <li><strong>No 50/60 Hz rejection:</strong> A digital notch filter could improve suppression of power-line interference.</li>
+                            <li><strong>No right-leg drive:</strong> Common-mode interference picked up by the body is not actively reduced.</li>
+                            <li><strong>INA128 and LM358 limitations at 5 V:</strong> Their input and output ranges are restricted near the supply rails. Modern rail-to-rail, low-noise amplifiers or an integrated ECG front end would provide better performance.</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
 
             <nav class="project-switcher" aria-label="Project navigation">
                 <a href="/projects/bvm-assist/"><span aria-hidden="true">&larr;</span> Previous / bvm-assist</a>
@@ -28,5 +76,20 @@
         </article>
         <footer class="site-footer">&copy; 2026 Samuel Wu. All rights reserved.</footer>
     </main>
+    <script>
+        const replayVideo = document.querySelector("[data-replay-delay]");
+
+        if (replayVideo) {
+            replayVideo.addEventListener("ended", () => {
+                const delay = Number.parseInt(replayVideo.dataset.replayDelay, 10) || 0;
+
+                window.setTimeout(() => {
+                    replayVideo.currentTime = 0;
+                    const replay = replayVideo.play();
+                    if (replay) replay.catch(() => {});
+                }, delay);
+            });
+        }
+    </script>
 </body>
 </html>
