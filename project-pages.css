@@ -590,12 +590,53 @@ a:focus-visible {
 }
 
 .site-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
     padding: 26px 0 0;
     border-top: 2px solid var(--rule-strong);
     color: var(--muted);
     font-family: var(--font-mono);
     font-size: 0.7rem;
     text-transform: uppercase;
+}
+
+.footer-copyright {
+    line-height: 1.55;
+}
+
+.visitor-stats {
+    display: flex;
+    gap: 24px;
+    margin: 0;
+    text-align: right;
+}
+
+.visitor-stat {
+    display: grid;
+    gap: 2px;
+}
+
+.visitor-stat dt {
+    color: var(--muted);
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+}
+
+.visitor-stat dd {
+    margin: 0;
+    color: var(--ink);
+    font-size: 0.88rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.visitor-stats[data-state="preview"] dd,
+.visitor-stats[data-state="unavailable"] dd {
+    color: var(--muted);
 }
 
 @media (max-width: 900px) {
@@ -637,6 +678,16 @@ a:focus-visible {
 }
 
 @media (max-width: 620px) {
+    .site-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .visitor-stats {
+        text-align: left;
+    }
+
     .projects-list {
         grid-template-columns: minmax(0, 1fr);
     }
