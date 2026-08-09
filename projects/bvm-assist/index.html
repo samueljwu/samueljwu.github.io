@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A placeholder for Samuel Wu's BVM assist project.">
-    <title>BVM Assist | Samuel Wu</title>
-    <link rel="stylesheet" href="/project-detail.css?v=0c2f8d54">
+    <meta name="description" content="BVM-Assist is designed to be lower-cost, more portable, and easier to integrate into routine CPR workflows.">
+    <title>BVM-Assist | Samuel Wu</title>
+    <link rel="stylesheet" href="/project-detail.css?v=github-social-20260809">
     <script src="/site-header.js" defer></script>
     <script src="/visitor-counter.js" defer></script>
 </head>
@@ -17,10 +17,93 @@
         <article class="case-study">
             <header class="case-hero">
                 <p class="eyebrow">Biomedical device</p>
-                <h1>bvm-assist</h1>
-                <p class="project-lead">More details will be added here soon.</p>
-                <p class="placeholder-status">Project details coming soon</p>
+                <h1>BVM-Assist</h1>
+                <p class="project-lead">To support CPR quality, this project proposes a compact, BVM-compatible feedback device that transmits simple haptic alerts to a wristband worn by the CPR performer.</p>
+                <div class="actions">
+                    <a class="social-link" href="https://github.com/samueljwu/bvm-assist" aria-label="View BVM-Assist on GitHub" title="GitHub" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2.18c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.7 1.25 3.35.95.1-.74.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.47.11-3.06 0 0 .96-.31 3.16 1.18.92-.26 1.9-.38 2.88-.39.98.01 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.77.11 3.06.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.18c0 .31.21.67.79.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"></path>
+                        </svg>
+                    </a>
+                </div>
             </header>
+
+            <div class="case-content">
+                <div class="content-main">
+                    <section aria-labelledby="objective-heading">
+                        <h2 id="objective-heading">Objective</h2>
+                        <p>The objective of BVM-Assist is to provide a low-cost, portable solution that can easily integrate into routine cardiopulmonary resuscitation (CPR) workflows and provide immediate, intuitive feedback to the CPR performer, helping support CPR quality.</p>
+                    </section>
+
+                    <section aria-labelledby="problem-heading">
+                        <h2 id="problem-heading">Problem</h2>
+                        <p>Cardiovascular mortality is a significant global burden, with an average global incidence rate of 55 per 100,000 person-years for out-of-hospital cardiac arrest and a survival rate to hospital discharge of only 7.6% <a class="citation" href="#reference-1">[1]</a>. CPR is the immediate intervention used to maintain blood flow during cardiac arrest before advanced treatments can be provided. However, outcomes often vary significantly, and these differences are due not only to patient-related factors but also to variability in CPR performance quality <a class="citation" href="#reference-2">[2]</a>. In out-of-hospital settings, the CPR performer may have limited experience and needs an indication of whether CPR is being performed effectively.</p>
+                        <p>ETCO<sub>2</sub> is a helpful metric for guiding CPR quality when arterial or central venous catheters are not available <a class="citation" href="#reference-2">[2]</a>. It reflects pulmonary blood flow during CPR and therefore serves as an indirect marker of cardiac output <span class="citation citation-group">[<a href="#reference-2">2</a>,<a href="#reference-5">5</a>]</span>. Higher ETCO<sub>2</sub> values are generally associated with an improved likelihood of return of spontaneous circulation (ROSC), while low ETCO<sub>2</sub> values, especially below 10 mmHg, may indicate poor prognosis or inadequate CPR quality <span class="citation citation-group">[<a href="#reference-2">2</a>,<a href="#reference-3">3</a>]</span>.</p>
+                        <p>Studies on implementation suggest that workflow issues limit its use as conventional capnography systems are often difficult to deploy outside well-resourced clinical settings because of cost, size, and workflow burden <span class="citation citation-group">[<a href="#reference-6">6</a>,<a href="#reference-7">7</a>]</span>.</p>
+                    </section>
+
+                    <section aria-labelledby="methods-heading">
+                        <h2 id="methods-heading">Methods</h2>
+                        <p>BVM-Assist consists of two main modules: a sensing module that detects the CO<sub>2</sub> level and a feedback module that alerts the CPR performer.</p>
+                        <figure class="analysis-figure figure-wide">
+                            <img src="/projects/bvm-assist/images/system-overview.png" alt="Diagram showing a bag-valve-mask connected to a carbon dioxide sensing module that wirelessly sends alerts to a wrist-worn haptic feedback module" width="1801" height="601" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 01</span> BVM-Assist system overview.</figcaption>
+                        </figure>
+
+                        <h3 id="sensing-heading">Sensing module</h3>
+                        <p>The sensing module is placed on the side of the mask in a bag-valve-mask (BVM) system and reads CO<sub>2</sub> levels from the PAS sensor every 10 seconds. It classifies the level into alert states and sends the alert to the feedback XIAO via ESP-NOW, which determines the vibration pattern based on the measured CO<sub>2</sub> level.</p>
+                        <p>The main components of the sensing module are a Seeed Studio XIAO ESP32-S3 developer board (XIAO) and an Infineon XENSIV PAS CO<sub>2</sub> evaluation board. The sensing XIAO receives data from the CO<sub>2</sub> sensor via the Universal Asynchronous Receiver/Transmitter (UART) protocol and transmits data to the other XIAO on the feedback module via the wireless ESP-NOW protocol. Because the sensor requires a 3.3V digital power supply and a 5 V power supply for the IR emitter <a class="citation" href="#reference-10">[10]</a>, while the sensing module is powered by a 3.7 V LiPo rechargeable battery, the device uses an Adafruit MiniBoost TPS61023 boost converter to produce the 5V power rail.</p>
+                        <figure class="analysis-figure figure-wide">
+                            <img src="/projects/bvm-assist/images/sensing-schematic.png" alt="Schematic connecting the XIAO ESP32-S3 to the XENSIV PAS carbon dioxide sensor by UART, with 3.3-volt and 5-volt power rails" width="1549" height="549" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 02</span> Schematic of the sensing module.</figcaption>
+                        </figure>
+                        <figure class="analysis-figure figure-wide">
+                            <img src="/projects/bvm-assist/images/sensing-module.png" alt="Annotated sensing module showing the XIAO ESP32-S3, Infineon PAS carbon dioxide sensor, boost converter, power switch, and LiPo battery" width="1773" height="776" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 03</span> Sensing module and labeled components.</figcaption>
+                        </figure>
+                        <p>The sensing module reads CO<sub>2</sub> levels from the PAS sensor every 10 seconds and classifies the level into three alert states: fast alert (below 5,000 ppm), slow alert (between 5,000 and 10,000 ppm), and no alert (above 10,000 ppm). No alert indicates that the measured CO<sub>2</sub> level is above the selected prototype threshold, which may be consistent with better pulmonary blood flow during CPR. The sensing module sends the alert state to the feedback XIAO via ESP-NOW.</p>
+
+                        <h3 id="feedback-heading">Feedback module</h3>
+                        <p>The main components of the feedback module are a XIAO and an ERM vibration motor. The feedback XIAO triggers the ERM motor after receiving instructions from the sensing XIAO. The XIAO outputs signals through a GPIO pin to control the ERM motor. A BJT transistor in a low-side configuration sits between the GPIO-controlled circuit and the ERM motor to control the current. A 470 &Omega; resistor limits the current between the GPIO pin and the transistor base, and a 10 k&Omega; pull-down resistor keeps the transistor off when the control signal is inactive. A flyback diode is placed across the motor to protect the circuit from voltage spikes when the motor is switched off.</p>
+                        <figure class="analysis-figure figure-wide">
+                            <img src="/projects/bvm-assist/images/feedback-schematic.png" alt="Schematic of the XIAO-controlled vibration motor circuit with a transistor, base resistor, pull-down resistor, and flyback diode" width="1073" height="819" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 04</span> Schematic of the feedback module.</figcaption>
+                        </figure>
+                        <figure class="analysis-figure figure-wide">
+                            <img src="/projects/bvm-assist/images/feedback-module.png" alt="Annotated feedback module showing the XIAO ESP32-S3, vibration motor, battery, switch, transistor, diode, resistors, and wrist-worn assembly" width="1854" height="1011" loading="lazy" decoding="async">
+                            <figcaption><span>Figure 05</span> Feedback module and labeled components.</figcaption>
+                        </figure>
+                    </section>
+
+                    <section aria-labelledby="limitations-heading">
+                        <h2 id="limitations-heading">Limitations and future work</h2>
+                        <p>There are several limitations related to both the device and the rigor of the tests. First, the device measures exhaled CO<sub>2</sub> as an ETCO<sub>2</sub> proxy rather than true breath-by-breath ETCO<sub>2</sub>, which is not sufficient for clinical use. Other limitations are primarily related to the sensor. Although there is a tradeoff between cost and functionality, the selected PAS CO<sub>2</sub> sensor provides a reasonable balance between the two for this prototype.</p>
+                        <p>The PAS CO2V15 has a t63 response time of approximately 55 seconds, so sampling the sensor every 10 seconds does not mean that a new physiological response is captured every 10 seconds. Its specified accuracy is also limited to the 400&ndash;3,000 ppm range, which causes instability to the device as it is below the 10,000 ppm threshold. Although the sensing mechanism is designed to selectively detect CO<sub>2</sub>, high humidity may reduce reliability because the sensor is specified only up to 85% relative humidity under non-condensing conditions. Many of these limitations could be reduced by using a more expensive CO<sub>2</sub> sensor with a broader characterized measurement range, faster response time, and higher accuracy.</p>
+                        <h3>Future work</h3>
+                        <ul class="feature-list">
+                            <li>Future iterations of the device could use a faster CO<sub>2</sub> sensor specifically designed for capnography <a class="citation" href="#reference-9">[9]</a>.</li>
+                            <li>Gas sampling could be improved by adding a small pump to the mask to reduce dead volume and more accurately reflect the CO<sub>2</sub> concentration during each breath.</li>
+                            <li>A potential design improvement could be to add a strain gauge to the wristband, extending toward the back of the hand, to detect the pressure applied by the CPR performer.</li>
+                            <li>The haptic feedback cadence could  be set to cue the recommended CPR compression rate.</li>
+                            <li>Testing could be made more rigorous by using a clinical-grade capnography device as a reference to compare the accuracy of the sensor and determine whether the measured mask CO<sub>2</sub> level is a sufficient representation of true ETCO<sub>2</sub>.</li>
+                        </ul>
+                    </section>
+
+                    <section aria-labelledby="references-heading">
+                        <h2 id="references-heading">References</h2>
+                        <ol class="reference-list">
+                            <li id="reference-1"><span>[1]</span><p>Berdowski, J., Berg, R. A., Tijssen, J. G. P., &amp; Koster, R. W. (2010). Global incidences of out-of-hospital cardiac arrest and survival rates: Systematic review of 67 prospective studies. <cite>Resuscitation, 81</cite>(11), 1479&ndash;1487. <a href="https://doi.org/10.1016/j.resuscitation.2010.08.006">DOI <span aria-hidden="true">&nearr;</span></a></p></li>
+                            <li id="reference-2"><span>[2]</span><p>Meaney, P. A., Bobrow, B. J., Mancini, M. E., Christenson, J., de Caen, A. R., Bhanji, F., Abella, B. S., Kleinman, M. E., Edelson, D. P., Berg, R. A., Aufderheide, T. P., Menon, V., Leary, M., &amp; CPR Quality Summit Investigators, the American Heart Association Emergency Cardiovascular Care Committee, and the Council on Cardiopulmonary, Critical Care, Perioperative and Resuscitation. (2013). Cardiopulmonary resuscitation quality: Improving cardiac resuscitation outcomes both inside and outside the hospital: A consensus statement from the American Heart Association. <cite>Circulation, 128</cite>(4), 417&ndash;435. <a href="https://doi.org/10.1161/CIR.0b013e31829d8654">DOI <span aria-hidden="true">&nearr;</span></a></p></li>
+                            <li id="reference-3"><span>[3]</span><p>Aminiahidashti, H., Shafiee, S., Zamani Kiasari, A., &amp; Sazgar, M. (2018). Applications of end-tidal carbon dioxide (ETCO<sub>2</sub>) monitoring in emergency department: A narrative review. <cite>Emergency (Tehran), 6</cite>(1), e5.</p></li>
+                            <li id="reference-5"><span>[5]</span><p>Sandroni, C., De Santis, P., &amp; D&rsquo;Arrigo, S. (2018). Capnography during cardiac arrest. <cite>Resuscitation, 132</cite>, 73&ndash;77. <a href="https://doi.org/10.1016/j.resuscitation.2018.08.018">DOI <span aria-hidden="true">&nearr;</span></a></p></li>
+                            <li id="reference-6"><span>[6]</span><p>Langhan, M. L., Kurtz, J. C., Schaeffer, P., Asnes, A. G., &amp; Riera, A. (2014). Experiences with capnography in acute care settings: A mixed-methods analysis of clinical staff. <cite>Journal of Critical Care, 29</cite>(6), 1035&ndash;1040. <a href="https://doi.org/10.1016/j.jcrc.2014.06.021">DOI <span aria-hidden="true">&nearr;</span></a></p></li>
+                            <li id="reference-7"><span>[7]</span><p>Shah, R., Streat, D. A., Auerbach, M., Shabanova, V., &amp; Langhan, M. L. (2022). Improving capnography use for critically ill emergency patients: An implementation study. <cite>Journal of Patient Safety, 18</cite>(1), e26&ndash;e32. <a href="https://doi.org/10.1097/PTS.0000000000000683">DOI <span aria-hidden="true">&nearr;</span></a></p></li>
+                            <li id="reference-9"><span>[9]</span><p>Rrmoku, D. (2025). Design and development of a compact, portable nondispersive infrared (NDIR)-based capnography device for real-time end-tidal carbon dioxide (CO<sub>2</sub>) monitoring. <cite>Cureus, 17</cite>(11), e97324. <a href="https://doi.org/10.7759/cureus.97324">DOI <span aria-hidden="true">&nearr;</span></a></p></li>
+                            <li id="reference-10"><span>[10]</span><p>Infineon Technologies AG. (2025). <cite>XENSIV&trade; PASCO2V15: PAS CO<sub>2</sub> 5 V sensor based on photoacoustic spectroscopy principle</cite> (Datasheet V1.4).</p></li>
+                        </ol>
+                    </section>
+                </div>
+            </div>
 
             <nav class="project-switcher project-switcher-first" aria-label="Project navigation">
                 <a href="/projects/ecg-device/">Next / ecg-device <span aria-hidden="true">&rarr;</span></a>

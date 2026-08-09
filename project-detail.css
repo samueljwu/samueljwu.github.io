@@ -21,7 +21,11 @@
 }
 
 .bvm-project {
-    --accent: #28618f;
+    --accent: #155f68;
+}
+
+.bvm-project sub {
+    font-size: 0.68em;
 }
 
 .placeholder-status {
@@ -139,7 +143,8 @@
     .connectome-project .content-main section > h2,
     .hermes-project .content-main section > h2,
     .cb-project .content-main section > h2,
-    .ecg-project .content-main section > h2 {
+    .ecg-project .content-main section > h2,
+    .bvm-project .content-main section > h2 {
         grid-row: 1;
     }
 }
@@ -638,6 +643,14 @@ code {
     font-weight: 700;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
+}
+
+.citation-group a {
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: inherit;
+    text-underline-offset: inherit;
 }
 
 .reference-list {
