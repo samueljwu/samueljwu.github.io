@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A harness-first local layer around Hermes Agent that organizes knowledge, reading, thoughts, tasks, repository discovery, and stock screening.">
+    <meta name="description" content="My second brain and assistant, built around Hermes Agent for a knowledge vault, mental space offload, thought organization, and information discovery.">
     <title>Hermes Local Layer | Samuel Wu</title>
-    <link rel="stylesheet" href="/project-detail.css?v=github-social-20260809">
+    <link rel="stylesheet" href="/project-detail.css?v=project-home-width-20261012">
     <script src="/site-header.js" defer></script>
+    <script src="/content-protection.js" defer></script>
     <script src="/visitor-counter.js" defer></script>
 </head>
 <body class="project-body hermes-project">
@@ -18,7 +19,7 @@
             <header class="case-hero">
                 <p class="eyebrow">Agentic AI</p>
                 <h1>hermes-local-layer</h1>
-                <p class="project-lead">A local layer around Hermes Agent that serves as my second brain.</p>
+                <p class="project-lead">My second brain and assistant, built around Hermes Agent.</p>
                 <div class="actions">
                     <a class="social-link" href="https://github.com/samueljwu/hermes-local-layer" aria-label="View hermes-local-layer on GitHub" title="GitHub" target="_blank" rel="noopener noreferrer">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -32,117 +33,84 @@
                 <div class="content-main">
                     <section aria-labelledby="overview-heading">
                         <h2 id="overview-heading">Overview</h2>
-                        <p>This is the custom local layer I built around <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a>, intended as my “second brain.” I wanted an agent that could help organize my thoughts and act as a knowledge archive because I am almost always multitasking and switching between knowledge domains. I interact with it through the CLI and Discord, mainly using it across six applications: wiki, feed, journal, tasks, repo-scout, and stock-screener.</p>
-                        <p>Each application is supported by specific skills and accessible through a dedicated Discord channel. The channel selects the appropriate workflow, and each application’s harness controls its permitted operations. The applications are narrowly defined with explicit boundaries, but they can work together through limited, controlled paths. This separation prevents context and data contamination.</p>
-                        <figure class="analysis-figure system-map-figure">
-                            <pre class="system-map" aria-label="Architecture map of the Hermes local layer">                         ┌──────────────────────────────┐
-                         │      UPSTREAM HERMES AGENT    │
-                         │ CLI · Gateway · Tools · Cron   │
-                         │ Skills · Memory · Plugins      │
-                         └──────────────┬───────────────┘
-                                        │
-                                        ▼
-             ┌─────────────────────────────────────────────┐
-             │        LOCAL /home/hermes CUSTOM LAYER       │
-             │   domain systems + harnesses + Discord UI    │
-             └──────────────────────┬──────────────────────┘
-                                    │
-              harness-first rule: orient → validate → mutate → verify
-                                    │
-┌───────────────────────────────────┼───────────────────────────────────┐
-│                                   │                                   │
-▼                                   ▼                                   ▼
-┌──────────────┐             ┌──────────────┐                    ┌──────────────┐
-│   JOURNAL    │             │    TASKS     │                    │     WIKI     │
-│ thoughts     │             │ commitments  │                    │ sourced facts│
-│ journal_ops  │             │ task_ops     │                    │ wiki_ops     │
-└──────┬───────┘             └──────┬───────┘                    └──────┬───────┘
-       │ read-only wiki context     │ task/project signals              │ concepts
-       │                            │                                    │
-       └────────────────────────────┼────────────────────────────────────┘
-                                    ▼
-                            ┌──────────────┐
-                            │     FEED     │
-                            │ interest map │
-                            │ feed_ops     │
-                            └──────┬───────┘
-                                   │ picks + generated page
-                                   ▼
-                            ┌──────────────┐
-                            │    /feed/    │
-                            └──────────────┘
-
-┌──────────────┐             ┌────────────────┐                  ┌──────────────┐
-│  REPO SCOUT  │             │  STOCK SCREEN  │                  │ STATIC SITE  │
-│ GitHub finds │             │  OHLCV scans   │                  │ homepage/dist│
-│ read-only    │             │  /stocks/      │                  │ /wiki /feed  │
-└──────┬───────┘             └───────┬────────┘                  │ /stocks     │
-       │                             │                           └──────┬───────┘
-       ▼                             ▼                                  ▲
-┌──────────────┐             ┌────────────────┐                         │
-│ #repo-scout  │             │#stock-screener │                         │
-└──────────────┘             └────────────────┘                         │
-                                                                        │
-┌───────────────────────────────────────────────────────────────────────┴──┐
-│ DISCORD WORKSPACES                                                        │
-│ #journal · #wiki · #tasks · #feed · #repo-scout · #stock-screener         │
-│ channel context chooses the workflow; each harness owns the safe write path│
-└──────────────────────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────────────────────┐
-│ SAFETY / REVIEW LAYER                                                     │
-│ REVIEW_PROTOCOL.md · backup/documentation/security guards · audits         │
-│ protects backups, generated artifacts, docs, routes, and subsystem borders │
-└──────────────────────────────────────────────────────────────────────────┘</pre>
-                            <figcaption><span>Figure 01</span> Architecture map of hermes-local-layer.</figcaption>
+                        <p>This local operating layer was built around <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a> with the goal of serving as my second brain and assistant. There are four main functionalities: knowledge vault, mental space offload, thought organization, and information discovery. These functions are delivered through six channels: wiki, journal, tasks, feed, repo-scout, and stock-screener, each with its own specific harness.</p>
+                        <p>The harnesses are built to allow only very selective access across systems. For example, the feed can read signals from the wiki, journal, and tasks to recommend reading, but it doesn’t have write permission. I will briefly describe what each subsystem does below.</p>
+                        <p>The <a href="https://github.com/samueljwu/hermes-local-layer">GitHub repository</a> and its <a href="https://github.com/samueljwu/hermes-local-layer#what-is-actually-published">publication inventory</a> provide more detail about the project.</p>
+                        <figure class="analysis-figure workflow-figure architecture-figure" aria-labelledby="architecture-caption">
+                            <div class="workflow-graph">
+                                <div class="workflow-node workflow-node-wide">
+                                    <strong>Upstream Hermes Agent</strong>
+                                    <small>CLI/TUI · messaging gateway · tools · cron · reusable skills</small>
+                                </div>
+                                <div class="workflow-connector" aria-hidden="true"></div>
+                                <div class="workflow-node workflow-node-wide">
+                                    <strong>Local operating layer</strong>
+                                    <small>orient → validate → mutate → verify</small>
+                                    <dl class="architecture-systems">
+                                        <dt>Journal</dt><dd>capture, organize, and archive thoughts</dd>
+                                        <dt>Wiki</dt><dd>source-only ingest, knowledge graph, and search</dd>
+                                        <dt>Tasks</dt><dd>projects, priorities, recurrence, and reminders</dd>
+                                        <dt>Feed</dt><dd>recommendations using journal/wiki/task signals</dd>
+                                        <dt>Scout</dt><dd>read-only GitHub project discovery</dd>
+                                        <dt>Stocks</dt><dd>market-data screens, charts, and review pages</dd>
+                                        <dt>Homepage</dt><dd>navigation plus generated presentation pages</dd>
+                                    </dl>
+                                </div>
+                                <div class="workflow-connector" aria-hidden="true"></div>
+                                <div class="workflow-branches workflow-branches-three architecture-outputs">
+                                    <div class="workflow-node">
+                                        <strong>Messaging workflows</strong>
+                                        <small>commands · feedback<br>scheduled reports</small>
+                                    </div>
+                                    <div class="workflow-node">
+                                        <strong>Served sites</strong>
+                                        <small>home · feed<br>wiki · stocks</small>
+                                    </div>
+                                    <div class="workflow-node">
+                                        <strong>Task integrations</strong>
+                                        <small>two-way edits<br>calendar · reports</small>
+                                    </div>
+                                </div>
+                                <p class="architecture-safety"><strong>Safety:</strong> canonical registries · subsystem validation · atomic writes<br>documentation checks · leak scans · filtered publication</p>
+                            </div>
+                            <figcaption id="architecture-caption"><span>Figure 01</span> Local architecture: Hermes Agent, the operating layer, and its connected workflows.</figcaption>
                         </figure>
                     </section>
 
                     <section aria-labelledby="wiki-heading">
                         <h2 id="wiki-heading">Wiki</h2>
-                        <p>The idea of a self-improving wiki-LLM was popularized by <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f#file-llm-wiki-md">Andrej Karpathy’s gist</a>.</p>
-                        <p>I added skills specifically for digesting long-form PDFs because I consume many academic papers and sell-side equity research reports, which often contain unwanted artifacts. The wiki is accessible through chat and also a custom website on the same private network as the agent. The site builds the Markdown files into static HTML, which is helpful for displaying mathematical equations, charts, and graphs that are harder to read in raw Markdown.</p>
-                        <p>When I ask the agent a question, it uses the wiki’s semantic index and graph to identify the most relevant pages, then reads the underlying Markdown before composing an answer. These queries also create a feedback loop and guides improvements to the wiki over time.</p>
-                        <p>Other features include a semantic graph that shows relationships among concepts, an activity log that records changes to the wiki, and a linting and review workflow that identifies opportunities for improvement.</p>
+                        <p>The idea of a self-improving wiki was partially inspired by <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f#file-llm-wiki-md">Andrej Karpathy’s gist</a>. An issue I often face is reading something, then stumbling upon a related topic months or years later and trying to recall what I know about it.</p>
+                        <p>The wiki addresses this: I dump whatever I read and find useful into the knowledge base, while the agent categorizes and organizes it into a “wiki.” When I ask questions, the answers are based strictly on sources within my “brain.”</p>
                         <figure class="analysis-figure video-figure">
                             <video autoplay muted playsinline preload="metadata" width="640" height="384" data-replay-delay="3000" aria-label="Looping animation of the Hermes wiki semantic graph">
                                 <source src="/projects/hermes-local-layer/images/wikigraph.mp4" type="video/mp4">
                                 Your browser does not support the embedded video.
                             </video>
-                            <figcaption><span>Figure 02</span> The interactive semantic graph connects related concepts across the wiki.</figcaption>
+                            <figcaption><span>Figure 02</span> The interactive graph connects related concepts across the wiki.</figcaption>
                         </figure>
-                    </section>
-
-                    <section aria-labelledby="feed-heading">
-                        <h2 id="feed-heading">Feed</h2>
-                        <p>This is a personalized twice-daily reading feed that recommends materials based on my interests. Its purpose is to keep me up to date on topics that interest me while broadening my scope with content I might not otherwise encounter. Each digest contains five items: three related to my existing interests and two exploratory picks intended to introduce less familiar topics. The interest profile is updated using recent signals from the wiki, journal, and tasks, as well as explicit feedback on exploratory recommendations. The feed draws from a curated list of approved sources.</p>
                     </section>
 
                     <section aria-labelledby="journal-heading">
                         <h2 id="journal-heading">Journal</h2>
-                        <p>This is a smart notepad for capturing unstructured thoughts. I am still a big fan of the iOS Notes app, but the thoughts I capture there can be messy, scattered, and lacking context. This application turns them into clean, structured thought cards while preserving my original wording. It then categorizes and saves each entry so I can query the agent and reflect on how my ideas have evolved over time. It can also consult the wiki through a read-only harness for possible interpretations or connections, while keeping that external context clearly separate from what I originally wrote.</p>
+                        <p>Journal is essentially a more eloquent version of myself. It turns my unstructured, random thoughts into coherent sentences and organizes them by topic. When I need to revisit my ideas, I consult this channel, which recalls both the ideas themselves and the thought process behind how they developed.</p>
                     </section>
 
                     <section aria-labelledby="tasks-heading">
                         <h2 id="tasks-heading">Tasks</h2>
-                        <p>This is a smart reminder and task manager that accepts natural-language commands and manages pending tasks, due dates, priorities, recurrence, tags, reminders, and completion history. For example, “send xmas cards dec 1” creates a pending task due on December 1. Automated watchdogs then post reminders in the Discord <code>#tasks</code> channel at the requested times.</p>
+                        <p>Tasks is my personal secretary. I tell the agent what needs to be done, and it organizes things into task objects. These objects are sorted into a database and linked to projects. The channel also connects to Notion and Google Calendar for visualization. At the end of each week, it recaps what I have accomplished.</p>
                     </section>
 
-                    <section aria-labelledby="repo-scout-heading">
-                        <h2 id="repo-scout-heading">Repo-scout</h2>
-                        <p>Repo-scout is a read-only GitHub project discovery tool that finds interesting projects. It applies various filters and ranks the resulting shortlist against my interests. Feedback on previous suggestions can adjust later rankings. Repo-scout only produces recommendations and takes no further action.</p>
-                    </section>
-
-                    <section aria-labelledby="stock-screener-heading">
-                        <h2 id="stock-screener-heading">Stock-screener</h2>
-                        <p>Stock-screener is a standalone weekly workflow that runs technical scans and helps me identify potential investment opportunities. It is still under development, with room for more sophisticated screening features.</p>
+                    <section aria-labelledby="discovery-heading">
+                        <h2 id="discovery-heading">Feed / Repo-scout / Stock-screener</h2>
+                        <p>These are the information discovery channels. The feed produces two daily digests with five articles each: three aligned with my interests (inferred from the wiki ingestion log, journal, and task log), and two exploratory articles (as far from my interests as possible) to expand my perspective.</p>
+                        <p>Repo-scout finds GitHub repos that I may find interesting. Stock-screener uses a technical approach to highlight interesting charts, prompting me to look into companies I may not have otherwise discovered.</p>
                     </section>
                 </div>
             </div>
 
             <nav class="project-switcher" aria-label="Project navigation">
-                <a href="/projects/connectome-graph-analysis/"><span aria-hidden="true">&larr;</span> Previous / connectome</a>
-                <a href="/projects/cb-terminal/">Next / cb-terminal <span aria-hidden="true">&rarr;</span></a>
+                <a class="project-previous" href="/projects/connectome-graph-analysis/"><span aria-hidden="true">&larr;</span> Previous / connectome</a>
+                <a class="project-next" href="/projects/cb-terminal/">Next / cb-terminal <span aria-hidden="true">&rarr;</span></a>
             </nav>
         </article>
         <footer class="site-footer">

@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="BVM-Assist is designed to be lower-cost, more portable, and easier to integrate into routine CPR workflows.">
     <title>BVM-Assist | Samuel Wu</title>
-    <link rel="stylesheet" href="/project-detail.css?v=github-social-20260809">
+    <link rel="stylesheet" href="/project-detail.css?v=project-home-width-20261012">
     <script src="/site-header.js" defer></script>
+    <script src="/content-protection.js" defer></script>
     <script src="/visitor-counter.js" defer></script>
 </head>
 <body class="project-body bvm-project">
@@ -54,24 +55,16 @@
                         <p>The sensing module is placed on the side of the mask in a bag-valve-mask (BVM) system and reads CO<sub>2</sub> levels from the PAS sensor every 10 seconds. It classifies the level into alert states and sends the alert to the feedback XIAO via ESP-NOW, which determines the vibration pattern based on the measured CO<sub>2</sub> level.</p>
                         <p>The main components of the sensing module are a Seeed Studio XIAO ESP32-S3 developer board (XIAO) and an Infineon XENSIV PAS CO<sub>2</sub> evaluation board. The sensing XIAO receives data from the CO<sub>2</sub> sensor via the Universal Asynchronous Receiver/Transmitter (UART) protocol and transmits data to the other XIAO on the feedback module via the wireless ESP-NOW protocol. Because the sensor requires a 3.3V digital power supply and a 5 V power supply for the IR emitter <a class="citation" href="#reference-10">[10]</a>, while the sensing module is powered by a 3.7 V LiPo rechargeable battery, the device uses an Adafruit MiniBoost TPS61023 boost converter to produce the 5V power rail.</p>
                         <figure class="analysis-figure figure-wide">
-                            <img src="/projects/bvm-assist/images/sensing-schematic.png" alt="Schematic connecting the XIAO ESP32-S3 to the XENSIV PAS carbon dioxide sensor by UART, with 3.3-volt and 5-volt power rails" width="1549" height="549" loading="lazy" decoding="async">
-                            <figcaption><span>Figure 02</span> Schematic of the sensing module.</figcaption>
-                        </figure>
-                        <figure class="analysis-figure figure-wide">
                             <img src="/projects/bvm-assist/images/sensing-module.png" alt="Annotated sensing module showing the XIAO ESP32-S3, Infineon PAS carbon dioxide sensor, boost converter, power switch, and LiPo battery" width="1773" height="776" loading="lazy" decoding="async">
-                            <figcaption><span>Figure 03</span> Sensing module and labeled components.</figcaption>
+                            <figcaption><span>Figure 02</span> Sensing module and labeled components.</figcaption>
                         </figure>
                         <p>The sensing module reads CO<sub>2</sub> levels from the PAS sensor every 10 seconds and classifies the level into three alert states: fast alert (below 5,000 ppm), slow alert (between 5,000 and 10,000 ppm), and no alert (above 10,000 ppm). No alert indicates that the measured CO<sub>2</sub> level is above the selected prototype threshold, which may be consistent with better pulmonary blood flow during CPR. The sensing module sends the alert state to the feedback XIAO via ESP-NOW.</p>
 
                         <h3 id="feedback-heading">Feedback module</h3>
                         <p>The main components of the feedback module are a XIAO and an ERM vibration motor. The feedback XIAO triggers the ERM motor after receiving instructions from the sensing XIAO. The XIAO outputs signals through a GPIO pin to control the ERM motor. A BJT transistor in a low-side configuration sits between the GPIO-controlled circuit and the ERM motor to control the current. A 470 &Omega; resistor limits the current between the GPIO pin and the transistor base, and a 10 k&Omega; pull-down resistor keeps the transistor off when the control signal is inactive. A flyback diode is placed across the motor to protect the circuit from voltage spikes when the motor is switched off.</p>
                         <figure class="analysis-figure figure-wide">
-                            <img src="/projects/bvm-assist/images/feedback-schematic.png" alt="Schematic of the XIAO-controlled vibration motor circuit with a transistor, base resistor, pull-down resistor, and flyback diode" width="1073" height="819" loading="lazy" decoding="async">
-                            <figcaption><span>Figure 04</span> Schematic of the feedback module.</figcaption>
-                        </figure>
-                        <figure class="analysis-figure figure-wide">
                             <img src="/projects/bvm-assist/images/feedback-module.png" alt="Annotated feedback module showing the XIAO ESP32-S3, vibration motor, battery, switch, transistor, diode, resistors, and wrist-worn assembly" width="1854" height="1011" loading="lazy" decoding="async">
-                            <figcaption><span>Figure 05</span> Feedback module and labeled components.</figcaption>
+                            <figcaption><span>Figure 03</span> Feedback module and labeled components.</figcaption>
                         </figure>
                     </section>
 
@@ -106,7 +99,7 @@
             </div>
 
             <nav class="project-switcher project-switcher-first" aria-label="Project navigation">
-                <a href="/projects/ecg-device/">Next / ecg-device <span aria-hidden="true">&rarr;</span></a>
+                <a class="project-next" href="/projects/ecg-device/">Next / ecg-device <span aria-hidden="true">&rarr;</span></a>
             </nav>
         </article>
         <footer class="site-footer">

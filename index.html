@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Samuel Wu's projects, interests, and path from investing toward neurotechnology.">
     <title>Samuel Wu</title>
-    <link rel="stylesheet" href="/project-pages.css?v=0c2f8d54">
+    <link rel="stylesheet" href="/project-pages.css?v=globe-routes-20261012">
     <script src="/site-header.js" defer></script>
+    <script src="/content-protection.js" defer></script>
     <script src="/visitor-counter.js" defer></script>
+    <script src="/assets/globe-land.js?v=20261013" defer></script>
+    <script src="/home-globe.js?v=short-hop-20261013" defer></script>
 </head>
 <body class="home-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -40,7 +43,7 @@
             <section class="home-block projects-block" aria-labelledby="projects-heading">
                 <h2 id="projects-heading">Projects</h2>
                 <div class="projects-list">
-                    <a class="project-link project-bvm" href="/projects/bvm-assist/">
+                    <a class="project-link project-bvm" href="/projects/bvm-assist/"><span class="project-card">
                         <span class="project-media">
                             <img src="/projects/bvm-assist/images/thumbnail.jpg" alt="Hands in CPR compression position with the BVM-Assist feedback module worn on the wrist" width="2838" height="2559" loading="lazy" decoding="async">
                         </span>
@@ -50,8 +53,8 @@
                             <span class="project-description">Low-cost, portable feedback device to support CPR quality.</span>
                         </span>
                         <span class="project-cta">Explore <span aria-hidden="true">&rarr;</span></span>
-                    </a>
-                    <a class="project-link project-ecg" href="/projects/ecg-device/">
+                    </span></a>
+                    <a class="project-link project-ecg" href="/projects/ecg-device/"><span class="project-card">
                         <span class="project-media">
                             <img src="/projects/ecg-device/images/thumbnail.jpg" alt="Breadboard prototype of the ECG device connected to a Seeed Studio microcontroller" width="1280" height="1011" loading="lazy" decoding="async">
                         </span>
@@ -61,8 +64,8 @@
                             <span class="project-description">Currently a simple breadboard ECG prototype.</span>
                         </span>
                         <span class="project-cta">Preview <span aria-hidden="true">&rarr;</span></span>
-                    </a>
-                    <a class="project-link project-connectome" href="/projects/connectome-graph-analysis/">
+                    </span></a>
+                    <a class="project-link project-connectome" href="/projects/connectome-graph-analysis/"><span class="project-card">
                         <span class="project-media">
                             <img src="/projects/connectome-graph-analysis/images/thumbnail.png" alt="Heatmap of the mean structural connectome across 70 Desikan brain regions" width="1348" height="1239" loading="lazy" decoding="async">
                         </span>
@@ -72,19 +75,19 @@
                             <span class="project-description">Exploratory graph and machine-learning analysis of connectome patterns.</span>
                         </span>
                         <span class="project-cta">Explore <span aria-hidden="true">&rarr;</span></span>
-                    </a>
-                    <a class="project-link project-hermes" href="/projects/hermes-local-layer/">
+                    </span></a>
+                    <a class="project-link project-hermes" href="/projects/hermes-local-layer/"><span class="project-card">
                         <span class="project-media">
                             <img src="/projects/hermes-local-layer/images/thumbnail-graph.png" alt="Semantic knowledge graph with blue, orange, purple, and green nodes on a dark background" width="1573" height="1000" loading="lazy" decoding="async">
                         </span>
                         <span class="project-copy">
                             <span class="project-type">Agentic AI</span>
                             <strong>hermes-local-layer</strong>
-                            <span class="project-description">A local layer around Hermes Agent that serves as my second brain.</span>
+                            <span class="project-description">Six local systems with source-owned harnesses and reviewed public output.</span>
                         </span>
                         <span class="project-cta">Explore <span aria-hidden="true">&rarr;</span></span>
-                    </a>
-                    <a class="project-link project-cb" href="/projects/cb-terminal/">
+                    </span></a>
+                    <a class="project-link project-cb" href="/projects/cb-terminal/"><span class="project-card">
                         <span class="project-media">
                             <img src="/projects/cb-terminal/images/thumbnail.png?v=0e5e01f458c4" alt="CB Terminal valuation workbench showing its assumptions interface" width="676" height="294" loading="lazy" decoding="async">
                         </span>
@@ -94,90 +97,48 @@
                             <span class="project-description">Local terminal built for convertible bond analysis.</span>
                         </span>
                         <span class="project-cta">Explore <span aria-hidden="true">&rarr;</span></span>
-                    </a>
+                    </span></a>
                 </div>
             </section>
 
+            <div class="personal-layout">
             <section id="about" class="home-block places-block" aria-labelledby="about-heading">
                 <h2 id="about-heading">About Me</h2>
                 <div class="places-heading">
                     <p class="places-intro">I was born in Taiwan and have since called several cities across Asia and the United States home.</p>
-                    <p class="map-hint">Click a city to learn more! <span aria-hidden="true">&nearr;</span></p>
+                    <p class="map-hint">Click on a city to learn more! <span aria-hidden="true">&nearr;</span></p>
                 </div>
-                <div class="map-scroll">
-                    <svg class="city-map" viewBox="0 0 840 420" role="img" aria-labelledby="city-map-title city-map-desc">
-                        <title id="city-map-title">Cities Samuel grew up in</title>
-                        <desc id="city-map-desc">A rough geographic path from Taoyuan to Taipei, Culver, New York, and Hong Kong, with approximate distances in miles. Each city is a link.</desc>
-                        <defs>
-                            <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
-                                <path d="M0,0 L8,4 L0,8 Z"></path>
-                            </marker>
-                        </defs>
-
-                        <path class="land" d="M86 126 C124 78, 206 58, 288 82 C340 98, 376 136, 362 182 C348 236, 276 260, 196 242 C118 224, 62 176, 86 126 Z"></path>
-                        <path class="land" d="M626 92 C678 60, 754 80, 790 136 C830 198, 770 264, 692 244 C626 228, 584 160, 626 92 Z"></path>
-                        <path class="land" d="M660 196 C680 168, 718 174, 734 206 C750 240, 724 278, 690 274 C654 270, 632 232, 660 196 Z"></path>
-                        <path class="land" d="M716 316 C738 304, 766 318, 770 342 C774 366, 746 386, 722 374 C700 362, 694 328, 716 316 Z"></path>
-
-                        <path class="route" d="M668 242 C686 220, 700 204, 716 184" marker-end="url(#arrowhead)"></path>
-                        <path class="route long-hop" d="M710 166 C574 22, 332 30, 220 116" marker-end="url(#arrowhead)"></path>
-                        <path class="route" d="M236 132 C274 108, 318 112, 348 136" marker-end="url(#arrowhead)"></path>
-                        <path class="route long-hop" d="M378 150 C470 336, 620 392, 722 354" marker-end="url(#arrowhead)"></path>
-
-                        <text class="distance" x="718" y="228">17 mi</text>
-                        <text class="distance" x="484" y="58">7,520 mi</text>
-                        <text class="distance" x="294" y="106">648 mi</text>
-                        <text class="distance" x="552" y="344">8,050 mi</text>
-
-                        <a class="city-link" href="https://travel.tycg.gov.tw/en" aria-label="Taoyuan, Taiwan, opens external page" target="_blank" rel="noopener noreferrer">
-                            <circle cx="660" cy="252" r="13"></circle>
-                            <text x="618" y="280">Taoyuan</text>
-                            <text x="618" y="298">Taiwan</text>
-                        </a>
-
-                        <a class="city-link" href="https://www.youtube.com/watch?v=z_fY1pj1VBw" aria-label="Taipei, Taiwan, opens external page" target="_blank" rel="noopener noreferrer">
-                            <circle cx="724" cy="172" r="13"></circle>
-                            <text x="772" y="152">Taipei</text>
-                            <text x="772" y="170">Taiwan</text>
-                        </a>
-
-                        <a class="city-link" href="https://www.youtube.com/watch?v=gdHt6MVsCek" aria-label="Culver, Indiana, opens external page" target="_blank" rel="noopener noreferrer">
-                            <circle cx="208" cy="124" r="13"></circle>
-                            <text x="208" y="158">Culver</text>
-                            <text x="208" y="176">IN, USA</text>
-                        </a>
-
-                        <a class="city-link" href="https://www.youtube.com/watch?v=vk6014HuxcE" aria-label="New York, New York, opens external page" target="_blank" rel="noopener noreferrer">
-                            <circle cx="364" cy="144" r="13"></circle>
-                            <text x="364" y="178">New York</text>
-                            <text x="364" y="196">NY, USA</text>
-                        </a>
-
-                        <a class="city-link" href="https://www.imdb.com/title/tt0338564/" aria-label="Hong Kong SAR, opens external page" target="_blank" rel="noopener noreferrer">
-                            <circle cx="734" cy="348" r="13"></circle>
-                            <text x="734" y="394">Hong Kong SAR</text>
-                        </a>
-                    </svg>
+                <div class="globe-stage">
+                    <canvas class="city-globe" role="img" aria-label="Cities Samuel grew up in. Drag to spin and tilt the globe. Use the city buttons below to bring a city into view; city links open external pages.">A rough geographic path from Taoyuan to Taipei, Culver, New York, and Hong Kong, with approximate distances in miles. Each city is a link.</canvas>
                 </div>
+                <ul class="globe-cities" aria-label="Cities Samuel grew up in">
+                    <li><div class="globe-city-copy"><a href="https://travel.tycg.gov.tw/en" aria-label="Taoyuan, Taiwan, opens external page" target="_blank" rel="noopener noreferrer">Taoyuan <span aria-hidden="true">&nearr;</span></a><span class="globe-city-region">Taiwan</span></div><button type="button" data-globe-city="0" aria-pressed="true" aria-label="Rotate globe to Taoyuan" title="Rotate globe to Taoyuan"><span aria-hidden="true">&#8635;</span></button></li>
+                    <li><div class="globe-city-copy"><a href="https://www.youtube.com/watch?v=z_fY1pj1VBw" aria-label="Taipei, Taiwan, opens external page" target="_blank" rel="noopener noreferrer">Taipei <span aria-hidden="true">&nearr;</span></a><span class="globe-city-region">Taiwan</span></div><button type="button" data-globe-city="1" aria-pressed="false" aria-label="Rotate globe to Taipei" title="Rotate globe to Taipei"><span aria-hidden="true">&#8635;</span></button></li>
+                    <li><div class="globe-city-copy"><a href="https://www.youtube.com/watch?v=gdHt6MVsCek" aria-label="Culver, Indiana, opens external page" target="_blank" rel="noopener noreferrer">Culver <span aria-hidden="true">&nearr;</span></a><span class="globe-city-region">IN, USA</span></div><button type="button" data-globe-city="2" aria-pressed="false" aria-label="Rotate globe to Culver" title="Rotate globe to Culver"><span aria-hidden="true">&#8635;</span></button></li>
+                    <li><div class="globe-city-copy"><a href="https://www.youtube.com/watch?v=vk6014HuxcE" aria-label="New York, New York, opens external page" target="_blank" rel="noopener noreferrer">New York <span aria-hidden="true">&nearr;</span></a><span class="globe-city-region">NY, USA</span></div><button type="button" data-globe-city="3" aria-pressed="false" aria-label="Rotate globe to New York" title="Rotate globe to New York"><span aria-hidden="true">&#8635;</span></button></li>
+                    <li><div class="globe-city-copy"><a href="https://www.imdb.com/title/tt0338564/" aria-label="Hong Kong SAR, opens external page" target="_blank" rel="noopener noreferrer">Hong Kong SAR <span aria-hidden="true">&nearr;</span></a></div><button type="button" data-globe-city="4" aria-pressed="false" aria-label="Rotate globe to Hong Kong SAR" title="Rotate globe to Hong Kong SAR"><span aria-hidden="true">&#8635;</span></button></li>
+                </ul>
+                <div class="sr-only globe-distances" aria-label="Approximate route distances"><span>17 mi</span><span>7,520 mi</span><span>648 mi</span><span>8,050 mi</span></div>
             </section>
 
             <section class="home-block curiosity-block" aria-labelledby="curiosity-heading">
                 <h2 id="curiosity-heading">Interests</h2>
                 <div class="about-copy">
-                    <p>I am curious about a wide range of topics, which led me to pursue my first career in investments. I started my career covering the utilities and alternative energy sectors, and then transitioned into a generalist role, investing in companies ranging from biotech to semiconductor companies to tea chains.</p>
-                    <p>Around 2024, I became seriously interested in neuroscience and increasingly fascinated by the human brain. I am particularly interested in non-invasive brain-computer interfaces and have decided that my ultimate goal is to become a leader in the field who creates devices that can treat diseases and improve people&rsquo;s quality of life.</p>
-                    <p>To prepare for this transition, I started pursuing a part-time master&rsquo;s degree in Neuroengineering at Johns Hopkins University while working as an investment analyst at a hedge fund. I have spent much of my time reading, learning, and building new projects, and it's been a lot of fun!</p>
+                    <p>I've always been interested in a wide range of topics, which is one of the reasons I went into investing. I started my career covering utilities and alternative energy before moving into a generalist role, where I've looked at everything from biotech and semiconductors to bubble tea chains.</p>
+                    <p>Around 2024, I started becoming very interested in the human brain and increasingly fascinated by the possibilities of neuroengineering. What interest me the most are non-invasive brain-computer interfaces and my long-term goal is to help develop devices that can treat diseases and improve people&rsquo;s quality of life.</p>
+                    <p>To work toward that goal, I am currently pursuing a part-time master&rsquo;s degree in Neuroengineering at Johns Hopkins University while working as an investment analyst at a hedge fund. I have also spent a lot of my time reading, learning, and building new projects, and it's been a lot of fun!</p>
                 </div>
             </section>
 
             <section class="interests-grid" aria-labelledby="hobbies-heading">
                 <article>
                     <h2 id="hobbies-heading">Hobbies</h2>
-                    <p>Basketball is my main sport, and I try to play every week. The 2013&ndash;14 San Antonio Spurs are my all-time favorite team (Go Spurs Go!). I also enjoy watching baseball, even though I can barely play it...</p>
-                    <p>Outside of sports, I watch a lot of movies, TV, and YouTube. Some of my favorites are Fight Club, Breaking Bad, and The Slow Mo Guys.</p>
-                    <p>When I get longer breaks, I try to travel as much as possible to experience different cultures. South America and Africa are the continents, aside from Antarctica, that I haven&rsquo;t explored yet, and I hope to visit both soon!</p>
+                    <p>Basketball is my favorite sport, and I try to play at least once a week. The 2013&ndash;14 San Antonio Spurs are my all-time favorite team (Go Spurs Go!). I also love watching baseball, although I'm pretty terrible at playing it myself...</p>
+                    <p>Outside of sports, I watch a lot of movies, TV, and YouTube. Some of my favorites are Fight Club, Breaking Bad, and Outdoor Boys.</p>
+                    <p>I also love traveling and try to visit new places whenever I get a longer break. South America and Africa are the only continents I haven't been to yet (other than Antarctica), and hopefully I'll get to explore both soon!</p>
                 </article>
             </section>
+            </div>
         </div>
 
         <footer class="site-footer">
