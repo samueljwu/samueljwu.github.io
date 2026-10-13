@@ -97,20 +97,6 @@
     margin-top: 0;
 }
 
-.project-body .actions .social-link {
-    border-color: var(--ink);
-    border-radius: 6px;
-    background: var(--ink);
-    color: var(--paper);
-}
-
-.project-body .actions .social-link:hover {
-    border-color: var(--accent);
-    background: var(--accent);
-    color: #fff;
-    transform: none;
-}
-
 .button {
     display: inline-flex;
     align-items: center;

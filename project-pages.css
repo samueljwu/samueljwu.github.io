@@ -228,8 +228,8 @@ a:focus-visible {
     z-index: -1;
     background:
         linear-gradient(180deg, transparent 32%, rgba(246, 244, 238, 0.03) 44%, rgba(246, 244, 238, 0.14) 56%, rgba(246, 244, 238, 0.36) 69%, rgba(246, 244, 238, 0.65) 81%, rgba(246, 244, 238, 0.89) 92%, var(--paper) 100%),
-        linear-gradient(rgba(246, 244, 238, 0.18), rgba(246, 244, 238, 0.18)),
-        url("/assets/home-background-neural-equations-right.png") center top / cover no-repeat;
+        linear-gradient(rgba(246, 244, 238, 0.28), rgba(246, 244, 238, 0.28)),
+        url("/assets/home-background-personal-cities-v4.png") center top / cover no-repeat;
     content: "";
     filter: saturate(0.85);
     pointer-events: none;
@@ -292,8 +292,7 @@ a:focus-visible {
     padding: var(--section-space) 0;
 }
 
-.home-block > h2,
-.interests-grid h2 {
+.home-page .home-section-heading {
     margin: 0;
     font-size: var(--text-heading);
     font-weight: 550;
@@ -313,6 +312,7 @@ a:focus-visible {
 
 .home-page .projects-block {
     min-width: 0;
+    padding-top: clamp(32px, 4vw, 64px);
 }
 
 .home-page .projects-list {
@@ -328,8 +328,12 @@ a:focus-visible {
     overscroll-behavior-x: contain;
     scroll-padding-inline: 16px;
     scroll-snap-type: x proximity;
-    scrollbar-color: var(--accent) transparent;
+    scrollbar-color: rgba(47, 111, 115, 0.3) transparent;
     scrollbar-width: thin;
+}
+
+.home-page .projects-list:is(:hover, :focus-within, :active) {
+    scrollbar-color: var(--accent) transparent;
 }
 
 .home-page .project-link {
@@ -798,6 +802,10 @@ a:focus-visible {
 }
 
 @media (max-width: 760px) {
+    .home-page .home-section-heading {
+        margin-bottom: var(--space-6);
+    }
+
     .home-hero::before {
         background-position: center, center, 38% top;
     }
